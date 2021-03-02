@@ -7,5 +7,5 @@ After some trail and error I managed to contruct some C++ Blueprint Function cla
 So I decided to post a first preview of my project.
 
 More info can be found at bits4u.nl.
-You can download a copy of a Unreal example project at https://www.bits4u.nl/ASSETS/vpinball.rar.
+You can download a copy of a Unreal example project at https://www.bits4u.nl/ASSETS/VPinball.rar
 You can contact me at info@bits4u.nl.
