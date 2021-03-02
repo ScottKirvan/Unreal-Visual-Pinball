@@ -1,6 +1,6 @@
 ﻿// Created by Microsoft (R) C/C++ Compiler Version 14.21.27702.2 (ab812787).
 //
-// c:\Users\datasung\Desktop\VPINMAME\SOURCE\SAMbuild-master\x64\Release\vpinmame.tlh
+// VPINMAME\SOURCE\SAMbuild-master\x64\Release\vpinmame.tlh
 //
 // C++ source equivalent of type library VPinMAME.tlb
 // compiler-generated file created 07/09/19 at 18:22:40 - DO NOT EDIT!
