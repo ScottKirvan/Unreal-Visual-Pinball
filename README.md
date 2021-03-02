@@ -5,3 +5,7 @@ Also a great fan of the Unreal game engine I wanted to connect the Unreal engine
 Pinmame is build as a COM control wich makes interfacing not straightforward because you have to deal with things like “Marschalling”.
 After some trail and error I managed to contruct some C++ Blueprint Function classes for Unreal that work very wel during first testing.
 So I decided to post a first preview of my project.
+
+More info can be found at bits4u.nl.
+You can download a copy of a Unreal example project at https://www.bits4u.nl/ASSETS/vpinball.rar.
+You can contact me at info@bits4u.nl.
