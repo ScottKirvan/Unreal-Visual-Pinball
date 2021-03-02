@@ -175,11 +175,11 @@ void UVPmame::VPGetLamps(TArray<uint8>& Lamps)
 	SAFEARRAY* psa = new SAFEARRAY;
 
 	hr = pController->get_Lamps(&varLamps);
-	if (hr == 1) // Return value of 1 means no changed pixels and no valid data: Exit
+	if (hr == 1) // Return value of 1 means no changed lamps and no valid data: Exit
 	{
 		return;
 	}
-	else if (hr == 0)
+	else if (hr == 0) // Return value of 0 means changed lamps : Process
 	{
 		psa = varLamps.parray;
 
