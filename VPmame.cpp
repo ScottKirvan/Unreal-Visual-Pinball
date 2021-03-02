@@ -193,10 +193,10 @@ void UVPmame::VPGetLamps(TArray<uint8>& Lamps)
 			SafeArrayGetLBound(psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
 			SafeArrayGetUBound(psa, 1, &lend); // Get Array End
 
-			for (long idx = lstart; idx <= lend; idx++) // Pixeldata in VARIANT is stored as Unsigned Integer
+			for (long idx = lstart; idx <= lend; idx++) // Loop to fill Blueprint array with updated lampdata
 			{
 				BOOL lamp;
-				lamp = pbstr[idx].boolVal; // Pixeldata in VARIANT is stored as bool
+				lamp = pbstr[idx].boolVal; // lampdata in VARIANT is stored as bool
 				Lamps.EmplaceAt(idx, lamp);
 			}
 
