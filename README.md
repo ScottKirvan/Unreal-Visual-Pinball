@@ -9,3 +9,6 @@ So I decided to post a first preview of my project.
 More info can be found at bits4u.nl.
 You can download a copy of a Unreal example project at https://www.bits4u.nl/ASSETS/VPinball.rar
 You can contact me at info@bits4u.nl.
+
+Not all the interfaces of Pinmame are present in this release but you can easily extend it yourself by using this code as a template or wait
+until i finisched implementing the rest.
