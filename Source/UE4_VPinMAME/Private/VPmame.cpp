@@ -62,8 +62,6 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 		hr = pControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &pControllerConnectionPoint);
  
 
-
-
 	/* Emulator settings :Used for testing */
 	pController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
 	if (FAILED(hr)) {
@@ -85,13 +83,10 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 
 	pController->put_ShowWinDMD(VARIANT_TRUE); // Show UI in resizable window
  
-
- 
 	/* Set romname of emulated pinball machine */
 	char* GameName = TCHAR_TO_ANSI(*RomName);
 	sGameName = SysAllocStringLen(NULL, (UINT)strlen(GameName));
 	MultiByteToWideChar(CP_ACP, 0, GameName, -1, sGameName, (int)strlen(GameName));
-
 
 	hr = pController->put_GameName(sGameName);
 	if (FAILED(hr)) {
@@ -105,7 +100,7 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 	}
 
 	/* Start emulator */
-	pController->Run(0, 0);
+	pController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
 	if (FAILED(hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Run !"));
 		return;
@@ -218,7 +213,34 @@ void UVPmame::VPGetLamps(TArray<uint8>& Lamps)
 	}
 
 return;
-
-
 }
 
+void UVPmame::get_RawDmdWidth(int& Width) { pController->get_RawDmdWidth(&Width); }
+void UVPmame::get_DmdWidth(int& Width) { pController->get_DmdWidth(&Width); }
+void UVPmame::Run(int nMinVersion) { pController->Run(0,nMinVersion); }
+void UVPmame::Stop() { pController->Stop(); }
+void UVPmame::ShowOptsDialog() { pController->ShowOptsDialog(0); }
+void UVPmame::ShowAboutDialog() { pController->ShowAboutDialog(0); }
+void UVPmame::get_Lamp (int nLamp, bool &pVal )
+{
+	VARIANT_BOOL tBoolVal;
+	pController->get_Lamp(nLamp, &tBoolVal);
+	pVal = (tBoolVal != 0) ? true : false;
+}
+void UVPmame::get_Solenoid (int nSolenoid, bool &pVal )
+{
+	VARIANT_BOOL tBoolVal;
+	pController->get_Solenoid(nSolenoid, &tBoolVal);
+	pVal = (tBoolVal != 0) ? true : false;
+}
+void UVPmame::get_Switch (int nSwitchNo, bool &pVal )
+{
+	VARIANT_BOOL tBoolVal;
+	pController->get_Switch(nSwitchNo, &tBoolVal);
+	pVal = (tBoolVal != 0) ? true : false;
+}
+void UVPmame:: put_Switch (int nSwitchNo,bool pVal )
+{
+	VARIANT_BOOL tBoolVal = pVal ? -1 : 0;
+	pController->put_Switch(nSwitchNo, tBoolVal);
+}
