@@ -24,8 +24,12 @@ public:
 	virtual void StartupModule();
 	virtual void ShutdownModule();
 
-	virtual void AddModuleListeners() {};
+	virtual void AddModuleListeners();
 
+	static inline FUE4_VPinMAMEModule& Get()
+    {
+        return FModuleManager::LoadModuleChecked< FUE4_VPinMAMEModule >("UE4_VPinMAME");
+    }
 
 
 	void AddMenuExtension(const FMenuExtensionDelegate &extensionDelegate, FName extensionHook, const TSharedPtr<FUICommandList> &CommandList = NULL, EExtensionHook::Position position = EExtensionHook::Before);

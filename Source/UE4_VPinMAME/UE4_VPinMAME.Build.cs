@@ -26,6 +26,7 @@ public class UE4_VPinMAME : ModuleRules
 			new string[]
 			{
 				"Core",
+				"EditorStyle",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

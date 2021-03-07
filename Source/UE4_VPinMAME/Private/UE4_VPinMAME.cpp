@@ -1,10 +1,17 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "UE4_VPinMAME.h"
+//#include "VPinMAMEMenu/Public/VPinMAMEMenu.h"
+#include "VPinMAMEMenu.h"
 
 #define LOCTEXT_NAMESPACE "FUE4_VPinMAMEModule"
 
 TSharedRef<FWorkspaceItem> FUE4_VPinMAMEModule::MenuRoot = FWorkspaceItem::NewGroup(FText::FromString("Menu Root"));
+
+void FUE4_VPinMAMEModule::AddModuleListeners()
+{
+	ModuleListeners.Add(MakeShareable(new VPinMAMEMenu));
+}
 
 void FUE4_VPinMAMEModule::StartupModule()
 {
@@ -58,12 +65,8 @@ void FUE4_VPinMAMEModule::MakePulldownMenu(FMenuBarBuilder &menuBuilder)
 
 void FUE4_VPinMAMEModule::FillPulldownMenu(FMenuBuilder &menuBuilder)
 {
-	menuBuilder.BeginSection("ExampleSection", FText::FromString("Section 1"));
+	menuBuilder.BeginSection("cExampleSection", FText::FromString("VPinMAME Settings"));
 	menuBuilder.AddMenuSeparator(FName("Section_1"));
-	menuBuilder.EndSection();
-
-	menuBuilder.BeginSection("ExampleSection", FText::FromString("Section 2"));
-	menuBuilder.AddMenuSeparator(FName("Section_2"));
 	menuBuilder.EndSection();
 }
 
