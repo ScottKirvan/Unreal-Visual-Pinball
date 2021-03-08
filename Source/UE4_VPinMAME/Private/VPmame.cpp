@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "VPmame.h"
 #include "Windows/AllowWindowsPlatformTypes.h" // Add vanilla C++ header :Start
 
@@ -15,7 +14,6 @@ inline long InterlockedDecrement(long volatile* pn) { return _InterlockedDecreme
 #include "com.h"
 #include "Windows/HideWindowsPlatformTypes.h" // Add vanilla C++ header :End
 
-
 static IController* pController = NULL;
 static HICON m_hIcon = 0;
 static IConnectionPointContainer* pControllerConnectionPointContainer = NULL;
@@ -23,8 +21,6 @@ static IConnectionPoint* pControllerConnectionPoint = NULL;
 static DWORD dwControllerCookie = 0;
 static HWND hWnd = NULL;
 static BSTR sGameName;
-
-
 
 void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
 {
