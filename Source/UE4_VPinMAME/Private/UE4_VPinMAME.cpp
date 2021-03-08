@@ -70,8 +70,6 @@ void FUE4_VPinMAMEModule::FillPulldownMenu(FMenuBuilder &menuBuilder)
 	menuBuilder.EndSection();
 }
 
-
-
 #undef LOCTEXT_NAMESPACE
 	
 IMPLEMENT_MODULE(FUE4_VPinMAMEModule, UE4_VPinMAME)
