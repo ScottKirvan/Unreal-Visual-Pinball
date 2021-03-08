@@ -1,6 +1,6 @@
 
-#include "UE4_VPinMAME.h"
 #include "VPinMAMEMenu.h"
+#include "UE4_VPinMAME.h"
 
 #include "ScopedTransaction.h"
 
