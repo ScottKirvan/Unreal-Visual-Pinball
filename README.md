@@ -16,7 +16,7 @@ which means sweeping implementation changes at the moment.  Once that's roughly 
 focusing on stubbing in and fleshing out and hooking the remaining pars of the PinMAME API to Unreal.
 
 Wanna play along?  Help is welcome - you can contact me on my 
-[discord](https://discord.gg/TSKHvVFYxB:w) channel.  I'm cptvideo up there.
+[discord](https://discord.gg/TSKHvVFYxB:w) server.  I'm cptvideo up there.
 
 # Unreal Pinmame Connection.
 ## Connect Unreal Engine to Pinmame pinball emulator
