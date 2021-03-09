@@ -5,7 +5,8 @@
 - dev - development branch - potentially unstable or buggy
 
 ## Known Issues
-found a crash:  you can right-click on the pinmame dmd window and stop emulation from there - ue crashes at that point - we may need to check that pController pointer to see if it still has a running game. 
+found a crash:  you can right-click on the pinmame dmd window and stop emulation from there - If the game is running in editor, ue will crashes - 
+we may need to check that pController pointer to see if it still has a running game. 
 That pointer is valid for some use when emulation is off, but I'm not sure how we can ensure emulation is active.
 
 ## Current project
