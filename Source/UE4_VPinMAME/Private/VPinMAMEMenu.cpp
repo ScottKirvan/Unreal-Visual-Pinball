@@ -63,12 +63,7 @@ void VPinMAMEMenu::MakeMenuEntry(FMenuBuilder &menuBuilder)
 
 void VPinMAMEMenu::MenuCommand1()
 {
-	UE_LOG(LogClass, Log, TEXT("clicked MenuCommand1"));
-//UVPmame::ShowOptsDialog();
-//UVPmame::ShowAboutDialog();
-	//pController->
-      //virtual HRESULT __stdcall ShowOptsDialog (
-      //virtual HRESULT __stdcall ShowAboutDialog (
+	FUE4_VPinMAMEModule::Get().GetPinMAME()->ShowOptsDialog();
 }
 
 #undef LOCTEXT_NAMESPACE
