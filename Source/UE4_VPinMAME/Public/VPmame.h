@@ -4,6 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Windows/AllowWindowsPlatformTypes.h" // Add vanilla C++ header :Start
+
+extern "C"  // this end-runs a compiler error - but I think it's still functional
+{
+	long __cdecl _InterlockedIncrement(long volatile* pn);
+	long __cdecl _InterlockedDecrement(long volatile* pn);
+}
+inline long InterlockedIncrement(long volatile* pn) { return _InterlockedIncrement(pn); }
+inline long InterlockedDecrement(long volatile* pn) { return _InterlockedDecrement(pn); }
+
+#include "com.h"
+#include "Windows/HideWindowsPlatformTypes.h" // Add vanilla C++ header :End
 #include "VPmame.generated.h"
 
 /**
@@ -16,6 +28,11 @@ class UVPmame : public UBlueprintFunctionLibrary
 	public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMesh;
+	static IController* pController;
+
+	UVPmame() {
+		pController = NULL;
+	};
 
 	/**
 	 * Get romname from blueprint and start PinMAME emulator
@@ -195,3 +212,5 @@ class UVPmame : public UBlueprintFunctionLibrary
 #endif
 
 };
+
+IController* UVPmame::pController = NULL;

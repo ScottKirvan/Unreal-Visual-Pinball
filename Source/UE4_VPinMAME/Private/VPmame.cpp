@@ -1,20 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPmame.h"
-#include "Windows/AllowWindowsPlatformTypes.h" // Add vanilla C++ header :Start
 
-extern "C"  // this end-runs a compiler error - but I think it's still functional
-{
-	long __cdecl _InterlockedIncrement(long volatile* pn);
-	long __cdecl _InterlockedDecrement(long volatile* pn);
-}
-inline long InterlockedIncrement(long volatile* pn) { return _InterlockedIncrement(pn); }
-inline long InterlockedDecrement(long volatile* pn) { return _InterlockedDecrement(pn); }
-
-#include "com.h"
-#include "Windows/HideWindowsPlatformTypes.h" // Add vanilla C++ header :End
-
-static IController* pController = NULL;
 static HICON m_hIcon = 0;
 static IConnectionPointContainer* pControllerConnectionPointContainer = NULL;
 static IConnectionPoint* pControllerConnectionPoint = NULL;
