@@ -1,4 +1,4 @@
-# ScottKirvan/Unreal-Visual-Pinball fork
+# /Unreal-Visual-Pinball
 
 ## Branches
 - Master  - main dev branch - should be good to pull and work with but may have issues
