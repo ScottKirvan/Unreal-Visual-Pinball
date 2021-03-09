@@ -21,4 +21,6 @@ protected:
 	//************************
 	// UI Command functions
 	void MenuCommand1();
+	void MenuCommand2();
+	void MenuCommand3();
 };

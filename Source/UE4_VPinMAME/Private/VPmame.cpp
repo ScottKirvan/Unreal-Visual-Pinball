@@ -244,6 +244,7 @@ void UVPmame::Run(int nMinVersion) { pController->Run(0,nMinVersion); }
 void UVPmame::Stop() { pController->Stop(); }
 void UVPmame::ShowOptsDialog() { pController->ShowOptsDialog(0); }
 void UVPmame::ShowAboutDialog() { pController->ShowAboutDialog(0); }
+void UVPmame::ShowPathsDialog () { pController->ShowPathesDialog(0); }
 void UVPmame::get_Lamp (int nLamp, bool &pVal )
 {
 	VARIANT_BOOL tBoolVal;

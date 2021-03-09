@@ -23,20 +23,23 @@ public:
 	virtual void RegisterCommands() override
 	{
 		UI_COMMAND(MenuCommand1, "Options...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
+		UI_COMMAND(MenuCommand2, "Paths...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
+		UI_COMMAND(MenuCommand3, "About...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
 	}
 
 public:
 	TSharedPtr<FUICommandInfo> MenuCommand1;
+	TSharedPtr<FUICommandInfo> MenuCommand2;
+	TSharedPtr<FUICommandInfo> MenuCommand3;
 };
 
 void VPinMAMEMenu::MapCommands()
 {
 	const auto& Commands = VPinMAMEMenuCommands::Get();
 
-	CommandList->MapAction(
-		Commands.MenuCommand1,
-		FExecuteAction::CreateSP(this, &VPinMAMEMenu::MenuCommand1),
-		FCanExecuteAction());
+	CommandList->MapAction( Commands.MenuCommand1, FExecuteAction::CreateSP(this, &VPinMAMEMenu::MenuCommand1), FCanExecuteAction());
+	CommandList->MapAction( Commands.MenuCommand2, FExecuteAction::CreateSP(this, &VPinMAMEMenu::MenuCommand2), FCanExecuteAction());
+	CommandList->MapAction( Commands.MenuCommand3, FExecuteAction::CreateSP(this, &VPinMAMEMenu::MenuCommand3), FCanExecuteAction());
 
 }
 
@@ -59,11 +62,12 @@ void VPinMAMEMenu::OnShutdownModule()
 void VPinMAMEMenu::MakeMenuEntry(FMenuBuilder &menuBuilder)
 {
 	menuBuilder.AddMenuEntry(VPinMAMEMenuCommands::Get().MenuCommand1);
+	menuBuilder.AddMenuEntry(VPinMAMEMenuCommands::Get().MenuCommand2);
+	menuBuilder.AddMenuEntry(VPinMAMEMenuCommands::Get().MenuCommand3);
 }
 
-void VPinMAMEMenu::MenuCommand1()
-{
-	FUE4_VPinMAMEModule::Get().GetPinMAME()->ShowOptsDialog();
-}
+void VPinMAMEMenu::MenuCommand1() { FUE4_VPinMAMEModule::Get().GetPinMAME()->ShowOptsDialog(); }
+void VPinMAMEMenu::MenuCommand2() { FUE4_VPinMAMEModule::Get().GetPinMAME()->ShowPathsDialog(); }
+void VPinMAMEMenu::MenuCommand3() { FUE4_VPinMAMEModule::Get().GetPinMAME()->ShowAboutDialog(); }
 
 #undef LOCTEXT_NAMESPACE
