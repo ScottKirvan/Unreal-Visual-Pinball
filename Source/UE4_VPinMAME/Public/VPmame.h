@@ -16,6 +16,7 @@ inline long InterlockedDecrement(long volatile* pn) { return _InterlockedDecreme
 
 #include "com.h"
 #include "Windows/HideWindowsPlatformTypes.h" // Add vanilla C++ header :End
+//#include "UE4_VPinMAME.h"
 #include "VPmame.generated.h"
 
 /**
@@ -30,9 +31,7 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UStaticMeshComponent* StaticMesh;
 	static IController* pController;
 
-	UVPmame() {
-		pController = NULL;
-	};
+	UVPmame();
 
 	/**
 	 * Get romname from blueprint and start PinMAME emulator
