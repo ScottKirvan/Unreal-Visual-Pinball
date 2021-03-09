@@ -1,5 +1,16 @@
+# Datasung/Unreal Pinmame Connection.
+
+
+## Current Status
+Refactoring and conforming to the Unreal naming convention 
+
+## Interesting to know
+If you are in a hurry check out scottkirvans fork at https://github.com/ScottKirvan/Unreal-Visual-Pinball.
+He is way ahad this repository.
+
+
 # Unreal Pinmame Connection.
-# Connect Unreal Engine to Pinmame pinball emulator
+## Connect Unreal Engine to Pinmame pinball emulator
 I allways have been a fan of pinball machines and I admire the work that has been put into te Pinmame pinball emulator.
 Also a great fan of the Unreal game engine I wanted to connect the Unreal engine to the Pinmame emulator.
 Pinmame is build as a COM control wich makes interfacing not straightforward because you have to deal with things like “Marschalling”.
@@ -11,4 +22,4 @@ You can download a copy of a Unreal example project at https://www.bits4u.nl/ASS
 You can contact me at info@bits4u.nl.
 
 Not all the interfaces of Pinmame are present in this release but you can easily extend it yourself by using this code as a template or wait
-until i finished implementing the rest.
+until I finished implementing the rest.
