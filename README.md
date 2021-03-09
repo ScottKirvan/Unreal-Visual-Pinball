@@ -18,25 +18,3 @@ focusing on stubbing in and fleshing out and hooking the remaining pars of the P
 Wanna play along?  Help is welcome - you can contact me on my 
 [discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo up there.
 
-# Datasung/Unreal Pinmame Connection.
-
-## Current Status
-Refactoring and conforming to the Unreal naming convention 
-
-## Interesting to know
-If you are in a hurry check out Scott Kirvans fork at https://github.com/ScottKirvan/Unreal-Visual-Pinball.
-He is way ahad this repository.
-
-## Connect Unreal Engine to Pinmame pinball emulator
-I allways have been a fan of pinball machines and I admire the work that has been put into te Pinmame pinball emulator.
-Also a great fan of the Unreal game engine I wanted to connect the Unreal engine to the Pinmame emulator.
-Pinmame is build as a COM control wich makes interfacing not straightforward because you have to deal with things like “Marschalling”.
-After some trail and error I managed to contruct some C++ Blueprint Function classes for Unreal that work very wel during first testing.
-So I decided to post a first preview of my project.
-
-More info can be found at https://www.bits4u.nl/unreal-engine-visual-pinball-part-1/.
-You can download a copy of a Unreal example project at https://www.bits4u.nl/ASSETS/VPinball.rar
-You can contact me at info@bits4u.nl.
-
-Not all the interfaces of Pinmame are present in this release but you can easily extend it yourself by using this code as a template or wait
-until I finished implementing the rest.
