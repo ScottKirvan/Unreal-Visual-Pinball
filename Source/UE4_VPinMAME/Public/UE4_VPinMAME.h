@@ -9,6 +9,7 @@
 #include "Editor/LevelEditor/Public/LevelEditor.h"
 #include "Editor/PropertyEditor/Public/PropertyEditing.h"
 #include "IAssetTypeActions.h"
+#include "VPmame.h"
 
 class IVPinMAMEModuleListenerInterface
 {
@@ -19,6 +20,7 @@ public:
 
 class FUE4_VPinMAMEModule : public IModuleInterface
 {
+	UVPmame *pPinMame;
 public:
 
 	virtual void StartupModule();
@@ -31,6 +33,8 @@ public:
         return FModuleManager::LoadModuleChecked< FUE4_VPinMAMEModule >("UE4_VPinMAME");
     }
 
+	void SetPinMAME(UVPmame *pMame) { pPinMame = pMame; };
+	UVPmame *GetPinMAME() { return pPinMame; };
 
 	void AddMenuExtension(const FMenuExtensionDelegate &extensionDelegate, FName extensionHook, const TSharedPtr<FUICommandList> &CommandList = NULL, EExtensionHook::Position position = EExtensionHook::Before);
 
