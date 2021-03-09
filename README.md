@@ -1,8 +1,8 @@
 # Unreal-Visual-Pinball
 
 ## Branches
-- Master  - main dev branch - should be good to pull and work with but may have issues
-- dev - development branch - potentially unstable or buggy
+- **main** - main dev branch - should be good to pull and work with but may have issues
+- **dev** - development branch - more likely to be unstable or buggy
 
 ## Current Status
 Refactoring and reorganizing. Creating proper modules and getting things scoped properly.
