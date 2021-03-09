@@ -37,16 +37,16 @@ class UVPmame : public UBlueprintFunctionLibrary
 	 * Get romname from blueprint and start PinMAME emulator
 	 */
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME")
-		static void VPStart(const FString& RomName);
+		static void VpStart(const FString& RomName);
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME")
-		static void VPStop();
+		static void VpStop();
 	/************************************************************************
 	 * IController.DmdWidth property (read-only): getthe width of DMD bitmap
 	 ************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME")
-		static void VPGetDMD(TArray<uint8>& Dots);
+		static void VpGetDMD(TArray<uint8>& Dots);
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME")
-		static void VPGetLamps(TArray<uint8>& Lamps);
+		static void VpGetLamps(TArray<uint8>& Lamps);
 
 /*****************************************
  * IController.Run method: start emulation
@@ -214,4 +214,4 @@ class UVPmame : public UBlueprintFunctionLibrary
 
 };
 
-IController* UVPmame::GPController = NULL;
+IController* UVPmame::GPController = nullptr;

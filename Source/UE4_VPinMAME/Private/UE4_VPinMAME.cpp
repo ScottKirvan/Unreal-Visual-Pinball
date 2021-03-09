@@ -21,7 +21,7 @@ void FUE4_VPinMAMEModule::StartupModule()
 		FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
 		LevelEditorMenuExtensibilityManager = LevelEditorModule.GetMenuExtensibilityManager();
 		MenuExtender = MakeShareable(new FExtender);
-		MenuExtender->AddMenuBarExtension("Window", EExtensionHook::After, NULL, FMenuBarExtensionDelegate::CreateRaw(this, &FUE4_VPinMAMEModule::MakePulldownMenu));
+		MenuExtender->AddMenuBarExtension("Window", EExtensionHook::After, nullptr, FMenuBarExtensionDelegate::CreateRaw(this, &FUE4_VPinMAMEModule::MakePulldownMenu));
 		LevelEditorMenuExtensibilityManager->AddExtender(MenuExtender);
 	}
 

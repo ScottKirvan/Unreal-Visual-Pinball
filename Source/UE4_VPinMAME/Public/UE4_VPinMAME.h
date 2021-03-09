@@ -36,7 +36,7 @@ public:
 	void SetPinMAME(UVPmame *pMame) { pPinMame = pMame; };
 	UVPmame *GetPinMAME() { return pPinMame; };
 
-	void AddMenuExtension(const FMenuExtensionDelegate &extensionDelegate, FName extensionHook, const TSharedPtr<FUICommandList> &CommandList = NULL, EExtensionHook::Position position = EExtensionHook::Before);
+	void AddMenuExtension(const FMenuExtensionDelegate &extensionDelegate, FName extensionHook, const TSharedPtr<FUICommandList> &CommandList = nullptr, EExtensionHook::Position position = EExtensionHook::Before);
 
 protected:
 	TArray<TSharedRef<IVPinMAMEModuleListenerInterface>> ModuleListeners;

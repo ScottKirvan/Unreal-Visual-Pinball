@@ -4,18 +4,18 @@
 #include "UE4_VPinMAME.h"
 
 static HICON m_hIcon = 0;
-static IConnectionPointContainer* GPControllerConnectionPointContainer = NULL;
-static IConnectionPoint* GPControllerConnectionPoint = NULL;
+static IConnectionPointContainer* GPControllerConnectionPointContainer = nullptr;
+static IConnectionPoint* GPControllerConnectionPoint = nullptr;
 static DWORD dwControllerCookie = 0;
-//static HWND hWnd = NULL;
+//static HWND hWnd = nullptr;
 static BSTR GPGameName;
 
 UVPmame::UVPmame() {
 	CLSID ClsID;
-	HRESULT hr;
-	GPController = NULL;
-	hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
-	if (FAILED(hr)) {
+	HRESULT Hr;
+	GPController = nullptr;
+	Hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
 		return;
 	}
@@ -23,8 +23,8 @@ UVPmame::UVPmame() {
 		UE_LOG(LogTemp, Log, TEXT("Class found."));
 	}
 
-	hr = CoCreateInstance(ClsID, NULL, CLSCTX_INPROC_SERVER, __uuidof(IController), (void**)&GPController); // Create COM object
-	if (FAILED(hr)) {
+	Hr = CoCreateInstance(ClsID, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IController), reinterpret_cast<void**>(&GPController)); // Create COM object
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
 		return;
 	}
@@ -32,8 +32,8 @@ UVPmame::UVPmame() {
 		UE_LOG(LogTemp, Log, TEXT("Controller class Created."));
 	}
 
-	hr = GPController->QueryInterface(IID_IConnectionPointContainer, (void**)&GPControllerConnectionPointContainer); // Get pointer to COM interfaces
-	if (FAILED(hr)) {
+	Hr = GPController->QueryInterface(IID_IConnectionPointContainer, reinterpret_cast<void**>(&GPControllerConnectionPointContainer)); // Get pointer to COM interfaces
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("QueryInterface Failed!"));
 		return;
 	}
@@ -41,20 +41,20 @@ UVPmame::UVPmame() {
 		UE_LOG(LogTemp, Log, TEXT("QueryInterface succeeded."));
 	}
 
-	if (SUCCEEDED(hr))
-		hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
+	if (SUCCEEDED(Hr))
+		Hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
 
 	FUE4_VPinMAMEModule::Get().SetPinMAME(this);
 };
 
-void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
+void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
 {
 	/* Pinmame COM object creation */
 	//CLSID ClsID;
-	HRESULT hr;
+	HRESULT Hr;
 	/*
-	hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
-	if (FAILED(hr)) {
+	Hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
 		return;
 	}
@@ -62,8 +62,8 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 		UE_LOG(LogTemp, Log, TEXT("Class found."));
 	}
 
-	hr = CoCreateInstance(ClsID, NULL, CLSCTX_INPROC_SERVER, __uuidof(IController), (void**)&GPController); // Create COM object
-	if (FAILED(hr)) {
+	Hr = CoCreateInstance(ClsID, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IController), (void**)&GPController); // Create COM object
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
 		return;
 	}
@@ -71,8 +71,8 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 		UE_LOG(LogTemp, Log, TEXT("Controller class Created."));
 	}
 
-	hr = GPController->QueryInterface(IID_IConnectionPointContainer, (void**)&GPControllerConnectionPointContainer); // Get pointer to COM interfaces
-	if (FAILED(hr)) {
+	Hr = GPController->QueryInterface(IID_IConnectionPointContainer, (void**)&GPControllerConnectionPointContainer); // Get pointer to COM interfaces
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("QueryInterface Failed!"));
 		return;
 	}
@@ -80,15 +80,15 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 		UE_LOG(LogTemp, Log, TEXT("QueryInterface succeeded."));
 	}
 
-	if (SUCCEEDED(hr))
-		hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
+	if (SUCCEEDED(Hr))
+		Hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
 	*/
  
 
 	/* Emulator settings :Used for testing */
 	/*
-	hr = GPController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
-	if (FAILED(hr)) {
+	Hr = GPController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Set HandleKeyboard !"));
 		return;
 	}
@@ -97,7 +97,7 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 	}
 
 	GPController->put_ShowDMDOnly(VARIANT_FALSE); // Show all PinMame UI info, not only the DMD
-	if (FAILED(hr)) {
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Set ShowDMDOnly !"));
 		return;
 	}
@@ -113,8 +113,8 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 	GPGameName = SysAllocStringLen(NULL, (UINT)strlen(GameName));
 	MultiByteToWideChar(CP_ACP, 0, GameName, -1, GPGameName, (int)strlen(GameName));
 
-	hr = GPController->put_GameName(GPGameName);
-	if (FAILED(hr)) {
+	Hr = GPController->put_GameName(GPGameName);
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Set Gamename !"));
 		SysFreeString(GPGameName);
 		return;
@@ -126,7 +126,7 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 
 	/* Start emulator */
 	GPController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
-	if (FAILED(hr)) {
+	if (FAILED(Hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Run !"));
 		return;
 	}
@@ -137,7 +137,7 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 }
 
 /* Stop emulator */
-void UVPmame::VPStop()
+void UVPmame::VpStop()
 {
 	GPController->Stop();
 	UE_LOG(LogTemp, Log, TEXT("Stopping Emulator."));
@@ -146,26 +146,23 @@ void UVPmame::VPStop()
 
 /* Get array of changed DMD pixels in unsigned integer format*/
 /* Call will fail if there are no changed pixels, Exit and do not process in this case */
-void UVPmame::VPGetDMD(TArray<uint8>& Dots)
+void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 {
-	HRESULT hr;
-	VARIANT varDmdPixels;
+	VARIANT VarDmdPixels;
 	LONG lstart, lend;
-	VARIANT HUGEP* pbstr;
-	SAFEARRAY* psa = new SAFEARRAY;
+	VARIANT HUGEP* Pbstr;
 
-	hr = GPController->get_RawDmdPixels(&varDmdPixels);
-	if (hr == 1) // Return value of 1 means no changed pixels and no valid data: Exit
+	HRESULT Hr = GPController->get_RawDmdPixels(&VarDmdPixels);
+	if (Hr == 1) // Return value of 1 means no changed pixels and no valid data: Exit
 	{
 		return;
 	}
-	else if (hr == 0) // Return value of 0 means changed pixels : Process
+	else if (Hr == 0) // Return value of 0 means changed pixels : Process
 	{
-		psa = varDmdPixels.parray; //Get pointer to safeArray
+		SAFEARRAY* psa = VarDmdPixels.parray; //Get pointer to safeArray
 
-
-		hr = SafeArrayAccessData(psa, (void HUGEP**) & pbstr); // Get pointer to arraydata : Data is passed as VARIANT type
-		if (FAILED(hr))
+		Hr = SafeArrayAccessData(psa, reinterpret_cast<void **>(& Pbstr)); // Get pointer to arraydata : Data is passed as VARIANT type
+		if (FAILED(Hr))
 		{
 			return;
 		}
@@ -173,12 +170,12 @@ void UVPmame::VPGetDMD(TArray<uint8>& Dots)
 		{
 			SafeArrayGetLBound(psa, 1, &lstart); // Get Array Start : Safearrays can have a starting point other than zero
 			SafeArrayGetUBound(psa, 1, &lend); // Get Array End
-			for (long idx = lstart; idx <= lend; idx++) // Loop to fill Blueprint array with updated pixeldata
+			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated pixeldata
 			{
-				BYTE pixel;
-				pixel = pbstr[idx].uintVal; // Pixeldata in VARIANT is stored as Unsigned Integer
-				pixel = (pixel - 20) * 3;
-				Dots.EmplaceAt(idx, pixel);
+				BYTE Pixel;
+				Pixel = Pbstr[Idx].uintVal; // Pixeldata in VARIANT is stored as Unsigned Integer
+				Pixel = (Pixel - 20) * 3;
+				Dots.EmplaceAt(Idx, Pixel);
 			}
 
 			SafeArrayUnaccessData(psa); // Release safearray for updating
@@ -193,43 +190,42 @@ void UVPmame::VPGetDMD(TArray<uint8>& Dots)
 
 /* Get array of changed lamps in unsigned integer format*/
 /* Call will fail if there are no changed lamps, Exit and do not process in this case */
-void UVPmame::VPGetLamps(TArray<uint8>& Lamps)
+void UVPmame::VpGetLamps(TArray<uint8>& Lamps)
 {
-	HRESULT hr;
-	VARIANT varLamps;
+	HRESULT Hr;
+	VARIANT VarLamps;
 	LONG lstart, lend;
-	VARIANT HUGEP* pbstr;
-	SAFEARRAY* psa = new SAFEARRAY;
+	VARIANT HUGEP* Pbstr;
 
-	hr = GPController->get_Lamps(&varLamps);
-	if (hr == 1) // Return value of 1 means no changed lamps and no valid data: Exit
+	Hr = GPController->get_Lamps(&VarLamps);
+	if (Hr == 1) // Return value of 1 means no changed lamps and no valid data: Exit
 	{
 		return;
 	}
-	else if (hr == 0) // Return value of 0 means changed lamps : Process
+	else if (Hr == 0) // Return value of 0 means changed lamps : Process
 	{
-		psa = varLamps.parray;
+		SAFEARRAY* Psa = VarLamps.parray;
 
-		hr = SafeArrayAccessData(psa, (void HUGEP**) & pbstr); // Get pointer to arraydata : Data is passed as VARIANT type
-		if (FAILED(hr))
+		Hr = SafeArrayAccessData(Psa, reinterpret_cast<void **>(&Pbstr)); // Get pointer to arraydata : Data is passed as VARIANT type
+		if (FAILED(Hr))
 		{
 			return;
 		}
 		else
 		{
-			SafeArrayGetLBound(psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
-			SafeArrayGetUBound(psa, 1, &lend); // Get Array End
+			SafeArrayGetLBound(Psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
+			SafeArrayGetUBound(Psa, 1, &lend); // Get Array End
 
-			for (long idx = lstart; idx <= lend; idx++) // Loop to fill Blueprint array with updated lampdata
+			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated lampdata
 			{
-				BOOL lamp;
-				lamp = pbstr[idx].boolVal; // lampdata in VARIANT is stored as bool
-				Lamps.EmplaceAt(idx, lamp);
+				BOOL Lamp;
+				Lamp = Pbstr[Idx].boolVal; // lampdata in VARIANT is stored as bool
+				Lamps.EmplaceAt(Idx, Lamp);
 			}
 
 
-			SafeArrayUnaccessData(psa); // Release safearray for updating
-			SafeArrayDestroy(psa); // Destroy safearray object
+			SafeArrayUnaccessData(Psa); // Release safearray for updating
+			SafeArrayDestroy(Psa); // Destroy safearray object
 
 			return;
 		}
