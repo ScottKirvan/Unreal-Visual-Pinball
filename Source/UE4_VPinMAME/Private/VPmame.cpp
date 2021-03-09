@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPmame.h"
+#include "UE4_VPinMAME.h"
 
 static HICON m_hIcon = 0;
 static IConnectionPointContainer* pControllerConnectionPointContainer = NULL;
@@ -9,11 +10,10 @@ static DWORD dwControllerCookie = 0;
 static HWND hWnd = NULL;
 static BSTR sGameName;
 
-void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
-{
-	/* Pinmame COM object creation */
+UVPmame::UVPmame() {
 	CLSID ClsID;
 	HRESULT hr;
+	pController = NULL;
 	hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
 	if (FAILED(hr)) {
 		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
@@ -43,10 +43,51 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 
 	if (SUCCEEDED(hr))
 		hr = pControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &pControllerConnectionPoint);
+
+	FUE4_VPinMAMEModule::Get().SetPinMAME(this);
+};
+
+void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
+{
+	/* Pinmame COM object creation */
+	//CLSID ClsID;
+	HRESULT hr;
+	/*
+	hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
+	if (FAILED(hr)) {
+		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
+		return;
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("Class found."));
+	}
+
+	hr = CoCreateInstance(ClsID, NULL, CLSCTX_INPROC_SERVER, __uuidof(IController), (void**)&pController); // Create COM object
+	if (FAILED(hr)) {
+		UE_LOG(LogTemp, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
+		return;
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("Controller class Created."));
+	}
+
+	hr = pController->QueryInterface(IID_IConnectionPointContainer, (void**)&pControllerConnectionPointContainer); // Get pointer to COM interfaces
+	if (FAILED(hr)) {
+		UE_LOG(LogTemp, Log, TEXT("QueryInterface Failed!"));
+		return;
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("QueryInterface succeeded."));
+	}
+
+	if (SUCCEEDED(hr))
+		hr = pControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &pControllerConnectionPoint);
+	*/
  
 
 	/* Emulator settings :Used for testing */
-	pController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
+	/*
+	hr = pController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
 	if (FAILED(hr)) {
 		UE_LOG(LogTemp, Log, TEXT("Can't Set HandleKeyboard !"));
 		return;
@@ -65,6 +106,7 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 	}
 
 	pController->put_ShowWinDMD(VARIANT_TRUE); // Show UI in resizable window
+	*/
  
 	/* Set romname of emulated pinball machine */
 	char* GameName = TCHAR_TO_ANSI(*RomName);
@@ -92,8 +134,6 @@ void UVPmame::VPStart(const FString& RomName) // Get romname from blueprint and 
 		UE_LOG(LogTemp, Log, TEXT("Running."));
 	}
 	return;
-
-
 }
 
 /* Stop emulator */
