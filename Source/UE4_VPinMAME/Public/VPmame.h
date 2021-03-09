@@ -146,7 +146,9 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Antialias (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SolMask (int nLow, /*[out,retval]*/ long * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_SolMask (int nLow,long pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void ShowPathesDialog (LONG_PTR hParentWnd );
+#endif
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void ShowPathsDialog ();
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ImgDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ImgDir (BSTR pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Version ( /*[out,retval]*/ BSTR * pVal );
