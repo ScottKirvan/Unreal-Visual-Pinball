@@ -5,7 +5,7 @@
 Refactoring and conforming to the Unreal naming convention 
 
 ## Interesting to know
-If you are in a hurry check out scottkirvans fork at https://github.com/ScottKirvan/Unreal-Visual-Pinball.
+If you are in a hurry check out Scott Kirvans fork at https://github.com/ScottKirvan/Unreal-Visual-Pinball.
 He is way ahad this repository.
 
 
