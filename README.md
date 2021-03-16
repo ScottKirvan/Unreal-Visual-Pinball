@@ -5,10 +5,13 @@
 - **dev** - development branch - more likely to be unstable, buggy, or fuggly.
 
 ## Current Status
-Refactoring and reorganizing. Creating proper modules and getting things scoped properly.
+WIP as a code project.  API only partically implemented.  Fun to play with, but not usable for game creation, 
+no example projects, limited documentation.
+
+Current tasks:  Refactoring and reorganizing. Creating proper modules and getting things scoped properly.
 
 Wanna play along?  Help is welcome - you can contact me on my 
-[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo up there.
+[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo.
 
 ## Project Origins  
 Huge thanks go to [Datasung](https://github.com/datasung) from [bits4u.nl](https://www.bits4u.nl/unreal-engine-visual-pinball-part-1/).  He started the project 
@@ -73,7 +76,7 @@ Please feel free to contribute an expansion of this explanation if you think it 
 
 ## Output Log
 Plugin logging happens under the log category, ```LogVPinball```.  You can filter the 
-output log to track plugin info and to get info that may help with plugin 
+**Output Log** to track plugin info and help with  
 installation problems.
 
 ![](Docs/images/logvpinball.png)  
