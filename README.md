@@ -80,6 +80,9 @@ installation problems.
 
 To utilize this category in your own C++ game or plugin code, 
 include ```#include "<path>/E4_VPinMAME.h"``` 
-and put ```DEFINE_LOG_CATEGORY(LogVPinball);``` at the top of your source file.  
+and put ```DEFINE_LOG_CATEGORY(LogVPinball);``` at the top of your source file.  From
+there you can use ```UE_LOG(LogVPinball, Log, TEXT("Test Log Message"));``` from within 
+your own source code.  Change "Log" to whatever verbosity level you wish: 
+(Fatal|Error|Warning|Display|Log|Verbose|VeryVerbose).
 
 From Blueprints, you may use the ```<TBD>``` node to generate ```LogVPinball``` output.
