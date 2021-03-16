@@ -35,8 +35,9 @@ The ROM is the firmware (program) burned into a chip on an IRL pinball machine. 
 machines.  The ROM manages game modes and progression, scorekeeping, sounds, lights, solenoids, DMD display output, and all the
 other rando-electro-mechanical-dohickeys that make pinball so wonderful.  The idea here is to provide a C++/Blueprint 
 interface to the ROMs so we can build virtual pinball machines in Unreal.  In effect, this opens up a world of pinball
-fun - no only running pinball machines as a game on a computer, but allowing us to design, modify, and build games that 
-could be built as physical machines in the real world.
+fun - not only running pinball machines as a game on a computer, but allowing us to design, modify, and build games that 
+could be built as physical machines in the real world, taking input from physical buttons on a cabinet, and sending signals
+to fire real work solenoids attached to pop-bumpers.
 
 ### Can I make my own ROMs?
 Apparently so.  I haven't tried it yet, but there is [this toolkit](https://github.com/ScottKirvan/freewpc)
@@ -66,7 +67,7 @@ This is kind of standard practice for GitHub Unreal plugins, but it goes kind of
 1. Right-click on your Unreal project's ```.uproject``` file and select ```Generate Visual Studio Project Files```
 1. Open your Visual Studio Solution file and compile your Unreal C++ project.
 
-Please feel free to contribute and expansion of this if you think it could help :-)
+Please feel free to contribute an expansion of this if you think it could help :-)
 
 ## Output Log
 Plugin logging happens under the log category, ```LogVPinball```.  You can filter the 
