@@ -16,30 +16,37 @@ UVPmame::UVPmame() {
 	HRESULT Hr;
 	GPController = nullptr;
 	Hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
-	if (FAILED(Hr)) {
-		UE_LOG(LogVPinball, Error, TEXT("Class couldn't be found. Maybe it isn't registered"));
+	if (FAILED(Hr))
+	{
+		UE_LOG(LogVPinball, Error, TEXT("Could not create VPinMAME.Controller Class. VPinMAME must be installed properly so that registry vars are initialized."));
 		return;
 	}
-	else {
-		UE_LOG(LogVPinball, Log, TEXT("Class found."));
+	else
+	{
+		UE_LOG(LogVPinball, Log, TEXT("VPinMAME.Controller Class found."));
 	}
 
 	Hr = CoCreateInstance(ClsID, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IController), reinterpret_cast<void**>(&GPController)); // Create COM object
-	if (FAILED(Hr)) {
-		UE_LOG(LogVPinball, Error, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
+	if (FAILED(Hr))
+	{
+		UE_LOG(LogVPinball, Error, TEXT("Can't create the Controller instance! \nRegistry settings from VPinMAME installation may be pointing at an incorrect VPinMAME64.dll or folder."));
+		GPController = nullptr;
 		return;
 	}
-	else {
-		UE_LOG(LogVPinball, Log, TEXT("Controller class Created."));
+	else
+	{
+		UE_LOG(LogVPinball, Log, TEXT("Controller instance created."));
 	}
 
 	Hr = GPController->QueryInterface(IID_IConnectionPointContainer, reinterpret_cast<void**>(&GPControllerConnectionPointContainer)); // Get pointer to COM interfaces
-	if (FAILED(Hr)) {
-		UE_LOG(LogVPinball, Error, TEXT("QueryInterface Failed!"));
+	if (FAILED(Hr) || GPControllerConnectionPointContainer == nullptr)
+	{
+		UE_LOG(LogVPinball, Error, TEXT("QueryInterface Failed! VPinMAME COM object interface invalid - incompatible version or bad VPinMAME64.dll?"));
 		return;
 	}
-	else {
-		UE_LOG(LogVPinball, Log, TEXT("QueryInterface succeeded."));
+	else
+	{
+		UE_LOG(LogVPinball, Log, TEXT("Controller Interface successfully interrogated - good to go!."));
 	}
 
 	if (SUCCEEDED(Hr))
@@ -51,19 +58,26 @@ UVPmame::UVPmame() {
 void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
 {
 	HRESULT Hr;
- 
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	/* Set romname of emulated pinball machine */
 	char* GameName = TCHAR_TO_ANSI(*RomName);
 	GPGameName = SysAllocStringLen(NULL, (UINT)strlen(GameName));
 	MultiByteToWideChar(CP_ACP, 0, GameName, -1, GPGameName, (int)strlen(GameName));
 
 	Hr = GPController->put_GameName(GPGameName);
-	if (FAILED(Hr)) {
+	if (FAILED(Hr))
+	{
 		UE_LOG(LogVPinball, Error, TEXT("Can't Set Gamename !"));
 		SysFreeString(GPGameName);
 		return;
 	}
-	else {
+	else
+	{
 		UE_LOG(LogVPinball, Log, TEXT("Gamename Set."));
 		SysFreeString(GPGameName);
 	}
