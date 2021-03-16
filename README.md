@@ -69,7 +69,7 @@ This is kind of standard practice for GitHub Unreal plugins, but it goes kind of
 1. Right-click on your Unreal project's ```.uproject``` file and select ```Generate Visual Studio Project Files```
 1. Open your Visual Studio Solution file and compile your Unreal C++ project.
 
-Please feel free to contribute an expansion of this if you think it could help :-)
+Please feel free to contribute an expansion of this explanation if you think it could help :-)
 
 ## Output Log
 Plugin logging happens under the log category, ```LogVPinball```.  You can filter the 
