@@ -97,6 +97,11 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 /* Stop emulator */
 void UVPmame::VpStop()
 {
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	GPController->Stop();
 	UE_LOG(LogVPinball, Log, TEXT("Stopping Emulator."));
 	return;
@@ -110,6 +115,11 @@ void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 	LONG lstart, lend;
 	VARIANT HUGEP* Pbstr;
 
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	HRESULT Hr = GPController->get_RawDmdPixels(&VarDmdPixels);
 	if (Hr == 1) // Return value of 1 means no changed pixels and no valid data: Exit
 	{
@@ -155,6 +165,11 @@ void UVPmame::VpGetLamps(TArray<uint8>& Lamps)
 	LONG lstart, lend;
 	VARIANT HUGEP* Pbstr;
 
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	Hr = GPController->get_Lamps(&VarLamps);
 	if (Hr == 1) // Return value of 1 means no changed lamps and no valid data: Exit
 	{
@@ -192,33 +207,53 @@ void UVPmame::VpGetLamps(TArray<uint8>& Lamps)
 return;
 }
 
-void UVPmame::get_RawDmdWidth(int& Width) { GPController->get_RawDmdWidth(&Width); }
-void UVPmame::get_DmdWidth(int& Width) { GPController->get_DmdWidth(&Width); }
-void UVPmame::Run(int nMinVersion) { GPController->Run(0,nMinVersion); }
-void UVPmame::Stop() { GPController->Stop(); }
-void UVPmame::ShowOptsDialog() { GPController->ShowOptsDialog(0); }
-void UVPmame::ShowAboutDialog() { GPController->ShowAboutDialog(0); }
-void UVPmame::ShowPathsDialog () { GPController->ShowPathesDialog(0); }
+void UVPmame::get_RawDmdWidth(int& Width) { if (GPController) { GPController->get_RawDmdWidth(&Width);} }
+void UVPmame::get_DmdWidth(int& Width) { if (GPController) {GPController->get_DmdWidth(&Width);} }
+void UVPmame::Run(int nMinVersion) { if (GPController) {GPController->Run(0,nMinVersion);} }
+void UVPmame::Stop() { if (GPController) {GPController->Stop();} }
+void UVPmame::ShowOptsDialog() { if (GPController) {GPController->ShowOptsDialog(0);} }
+void UVPmame::ShowAboutDialog() { if (GPController) {GPController->ShowAboutDialog(0);} }
+void UVPmame::ShowPathsDialog () { if (GPController) {GPController->ShowPathesDialog(0);} }
 void UVPmame::get_Lamp (int nLamp, bool &pVal )
 {
 	VARIANT_BOOL tBoolVal;
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	GPController->get_Lamp(nLamp, &tBoolVal);
 	pVal = (tBoolVal != 0) ? true : false;
 }
 void UVPmame::get_Solenoid (int nSolenoid, bool &pVal )
 {
 	VARIANT_BOOL tBoolVal;
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	GPController->get_Solenoid(nSolenoid, &tBoolVal);
 	pVal = (tBoolVal != 0) ? true : false;
 }
 void UVPmame::get_Switch (int nSwitchNo, bool &pVal )
 {
 	VARIANT_BOOL tBoolVal;
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	GPController->get_Switch(nSwitchNo, &tBoolVal);
 	pVal = (tBoolVal != 0) ? true : false;
 }
 void UVPmame:: put_Switch (int nSwitchNo,bool pVal )
 {
 	VARIANT_BOOL tBoolVal = pVal ? -1 : 0;
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
 	GPController->put_Switch(nSwitchNo, tBoolVal);
 }
