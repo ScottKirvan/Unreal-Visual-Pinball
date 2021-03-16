@@ -41,9 +41,11 @@ to fire real world things like, lights, flippers, & solenoids attached to pop-bu
 
 ### Can I make my own ROMs?
 Apparently so.  I haven't tried it yet, but there is [this toolkit](https://github.com/ScottKirvan/freewpc)
-for generating ROM images.
+for generating ROM images.  If anyone is working with this and might be interested in building some simple test-fixture ROMs, 
+please contact me. These would be roms that do things like simply firing solenoid and light events, DMD diagnostics, and 
+processing input switches.
 
-### Is there any more question in your FAQ?
+### Is there any more questions in your FAQ?
 No, not yet :-)
 
 ## Prerequisites
