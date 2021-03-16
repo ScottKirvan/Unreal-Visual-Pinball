@@ -37,7 +37,7 @@ other rando-electro-mechanical-dohickeys that make pinball so wonderful.  The id
 interface to the ROMs so we can build virtual pinball machines in Unreal.  In effect, this opens up a world of pinball
 fun - not only running pinball machines as a game on a computer, but allowing us to design, modify, and build games that 
 could be built as physical machines in the real world, taking input from physical buttons on a cabinet, and sending signals
-to fire real work solenoids attached to pop-bumpers.
+to fire real world things like, lights, flippers, & solenoids attached to pop-bumpers, etc.
 
 ### Can I make my own ROMs?
 Apparently so.  I haven't tried it yet, but there is [this toolkit](https://github.com/ScottKirvan/freewpc)
