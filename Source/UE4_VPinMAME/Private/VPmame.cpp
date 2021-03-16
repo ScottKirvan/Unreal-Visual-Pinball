@@ -3,6 +3,8 @@
 #include "VPmame.h"
 #include "UE4_VPinMAME.h"
 
+DEFINE_LOG_CATEGORY(LogVPinball);
+
 static HICON m_hIcon = 0;
 static IConnectionPointContainer* GPControllerConnectionPointContainer = nullptr;
 static IConnectionPoint* GPControllerConnectionPoint = nullptr;
@@ -16,29 +18,29 @@ UVPmame::UVPmame() {
 	GPController = nullptr;
 	Hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
+		UE_LOG(LogVPinball, Error, TEXT("Class couldn't be found. Maybe it isn't registered"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Class found."));
+		UE_LOG(LogVPinball, Log, TEXT("Class found."));
 	}
 
 	Hr = CoCreateInstance(ClsID, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IController), reinterpret_cast<void**>(&GPController)); // Create COM object
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
+		UE_LOG(LogVPinball, Error, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Controller class Created."));
+		UE_LOG(LogVPinball, Log, TEXT("Controller class Created."));
 	}
 
 	Hr = GPController->QueryInterface(IID_IConnectionPointContainer, reinterpret_cast<void**>(&GPControllerConnectionPointContainer)); // Get pointer to COM interfaces
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("QueryInterface Failed!"));
+		UE_LOG(LogVPinball, Error, TEXT("QueryInterface Failed!"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("QueryInterface succeeded."));
+		UE_LOG(LogVPinball, Log, TEXT("QueryInterface succeeded."));
 	}
 
 	if (SUCCEEDED(Hr))
@@ -55,29 +57,29 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 	/*
 	Hr = CLSIDFromProgID(OLESTR("VPinMAME.Controller"), &ClsID); // Get class ID from program ID
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
+		UE_LOG(LogVPinball, Warning, TEXT("Class couldn't be found. Maybe it isn't registered"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Class found."));
+		UE_LOG(LogVPinball, Log, TEXT("Class found."));
 	}
 
 	Hr = CoCreateInstance(ClsID, nullptr, CLSCTX_INPROC_SERVER, __uuidof(IController), (void**)&GPController); // Create COM object
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
+		UE_LOG(LogVPinball, Log, TEXT("Can't create the Controller class! \nPlease check that you have installed Visual PinMAME properly!"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Controller class Created."));
+		UE_LOG(LogVPinball, Log, TEXT("Controller class Created."));
 	}
 
 	Hr = GPController->QueryInterface(IID_IConnectionPointContainer, (void**)&GPControllerConnectionPointContainer); // Get pointer to COM interfaces
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("QueryInterface Failed!"));
+		UE_LOG(LogVPinball, Log, TEXT("QueryInterface Failed!"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("QueryInterface succeeded."));
+		UE_LOG(LogVPinball, Log, TEXT("QueryInterface succeeded."));
 	}
 
 	if (SUCCEEDED(Hr))
@@ -89,20 +91,20 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 	/*
 	Hr = GPController->put_HandleKeyboard(VARIANT_TRUE); // Allow switch input by keyboard
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't Set HandleKeyboard !"));
+		UE_LOG(LogVPinball, Log, TEXT("Can't Set HandleKeyboard !"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("HandleKeyboard Set to true."));
+		UE_LOG(LogVPinball, Log, TEXT("HandleKeyboard Set to true."));
 	}
 
 	GPController->put_ShowDMDOnly(VARIANT_FALSE); // Show all PinMame UI info, not only the DMD
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't Set ShowDMDOnly !"));
+		UE_LOG(LogVPinball, Log, TEXT("Can't Set ShowDMDOnly !"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("ShowDMDOnly Set to false."));
+		UE_LOG(LogVPinball, Log, TEXT("ShowDMDOnly Set to false."));
 	}
 
 	GPController->put_ShowWinDMD(VARIANT_TRUE); // Show UI in resizable window
@@ -115,23 +117,23 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 
 	Hr = GPController->put_GameName(GPGameName);
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't Set Gamename !"));
+		UE_LOG(LogVPinball, Error, TEXT("Can't Set Gamename !"));
 		SysFreeString(GPGameName);
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Gamename Set."));
+		UE_LOG(LogVPinball, Log, TEXT("Gamename Set."));
 		SysFreeString(GPGameName);
 	}
 
 	/* Start emulator */
-	GPController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
+	Hr = GPController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
 	if (FAILED(Hr)) {
-		UE_LOG(LogTemp, Log, TEXT("Can't Run !"));
+		UE_LOG(LogVPinball, Error, TEXT("Can't Run !"));
 		return;
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("Running."));
+		UE_LOG(LogVPinball, Log, TEXT("Running."));
 	}
 	return;
 }
@@ -140,7 +142,7 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 void UVPmame::VpStop()
 {
 	GPController->Stop();
-	UE_LOG(LogTemp, Log, TEXT("Stopping Emulator."));
+	UE_LOG(LogVPinball, Log, TEXT("Stopping Emulator."));
 	return;
 }
 
