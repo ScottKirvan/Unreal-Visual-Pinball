@@ -5,6 +5,9 @@
 - **dev** - development branch - more likely to be unstable, buggy, or fuggly.
 
 ## Current Status
+Greetings and welcome!  First, a quick word of warning:  This is an in-development project - 
+it is not ready for play-testing and no playable games have been built with it yet.
+
 Refactoring and reorganizing. Creating proper modules and getting things scoped properly.
 
 Wanna play along?  Help is welcome - you can contact me on my 
