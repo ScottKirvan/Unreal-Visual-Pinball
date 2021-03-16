@@ -11,6 +11,8 @@
 #include "IAssetTypeActions.h"
 #include "VPmame.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogVPinball, Log, All);
+
 class IVPinMAMEModuleListenerInterface
 {
 public:
