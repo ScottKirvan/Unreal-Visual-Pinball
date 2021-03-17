@@ -182,12 +182,12 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/************************************************************************
 	 * IController.RawDmdHeight property (read-only): get the height of the DMD
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RawDmdHeight ( /*[out,retval]*/ int& Height );
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RawDmdHeight ( int& Height );
 	
 	/************************************************************************************************
 	* IController.RawDmdPixels (read-only): Copy whole DMD to a self allocated array (values 0..100)
 	************************************************************************************************/
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RawDmdPixels ( /*[out,retval]*/ TArray<uint8>& Pixels );
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RawDmdPixels ( TArray<uint8>& Pixels );
 	
 	/************************************************************************
 	 * IController.DmdWidth property (read-only): get the width of DMD bitmap
@@ -195,12 +195,15 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdWidth(int& Width);
 	
 	/************************************************************************
-	 * IController.DmdHeight property (read-only): get the width of DMD bitmap
+	 * IController.DmdHeight property (read-only): get the height of DMD bitmap
 	 ************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdHeight(int& Height);
 	
+	/*************************************************************************
+	* IController.DmdPixel (read-only): read a given pixel of the DMD (slow!) (values 0..100?)
+	*************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdPixel (int x,int y,  int & PixelValue );
 #if 0
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdPixel (int x,int y, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_updateDmdPixels (int * * buf,int width,int height, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLampsState (int * * buf, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_LampsState (int * * buf, /*[out,retval]*/ int * pVal );

@@ -158,6 +158,17 @@ void UVPmame::get_RawDmdPixels(TArray<uint8>& Pixels)
 	}
 }
 
+void UVPmame::get_DmdPixel (int x,int y,  int & PixelValue )
+{
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	GPController->get_DmdPixel(x, y, &PixelValue);
+	PixelValue = (PixelValue - 20) * 3;  // I'm manipulating this based on what Data Sung did above - no sure I follow and the results seem odd
+}
+
 
 /* Get array of changed lamps in unsigned integer format*/
 /* Call will fail if there are no changed lamps, Exit and do not process in this case */
@@ -260,3 +271,4 @@ void UVPmame:: put_Switch (int nSwitchNo,bool pVal )
 	
 	GPController->put_Switch(nSwitchNo, tBoolVal);
 }
+
