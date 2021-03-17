@@ -1,23 +1,52 @@
-# Unreal-Visual-Pinball
+# Pinball Toolkit for Unreal Engine
+Welcome!
 
 ## Branches
-- **main** - main dev branch - should be good to pull and work with but may have issues.
-- **dev** - development branch - more likely to be unstable, buggy, or fuggly.
+- **release** - tested, should be good to go - this will be the branch to start making playable games with.
+- **main** - main development branch - should be good to pull and work with but may have issues.
+- **dev-XXX** - WIP development branches - more likely to be unstable, buggy, or fuggly.
 
 ## Current Status
-WIP as a code project.  API only partically implemented.  Fun to play with, but not usable for game creation, 
-no example projects, limited documentation.
+WIP as a code project.  API only partially implemented.  Fun to play with, but not usable for game creation. 
+No example projects. Limited documentation.
 
-Current tasks:  Refactoring and reorganizing. Creating proper modules and getting things scoped properly.
+Current tasks:  Refactoring and reorganizing. Creating proper modules and getting things scoped properly.  Fleshing
+out the remainder of the API.  Documentation.
 
 Wanna play along?  Help is welcome - you can contact me on my 
-[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo.
+[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo.  Or, just fork this repo
+and submit pull requests.  :-)
+## Getting up and running
+### Prerequisites
+- Unreal running in Windows - *I'm running 4.26 in Windows 10. Earlier versions may work.*
+- VPinMAME installed and runnable - *quickstart: install [this](https://www.vpforums.org/index.php?app=downloads&showfile=11573)
+  and note the location of VPinMAME within that install.*
+- game ROMs installed in VPinMAME's ROMs folder - *We can't help you with this part... for reasons.*
+- for developers:  compiler/dev env - *I'm using Visual Studio 2019.*
+
+Unreal-Visual-Pinball uses COM object (COM component) communications to interface with VPinMAME's
+DLL.  When VPinMAME is properly installed, it sets up registry keys that tell COM where to find the DLL.  If 
+those keys aren't properly set up, the system will not run.
+
+*"...those tiki-torches must be kept lit.... those seeds must be kept warm.... if those seeds die.... we die!"*
+
+### Installation
+This is kind of standard practice for GitHub Unreal plugins, but it goes kind of like this:
+1. Create a new Unreal project.
+1. Create a ```Plugins``` folder in your project directory.
+1. Clone the GitHub repository into your ```Plugins``` folder.
+1. Right-click on your Unreal project's ```.uproject``` file and select ```Generate Visual Studio Project Files```
+1. Open your Visual Studio Solution file and compile your Unreal C++ project.
 
 ## Project Origins  
 Huge thanks go to [Datasung](https://github.com/datasung) from [bits4u.nl](https://www.bits4u.nl/unreal-engine-visual-pinball-part-1/).  He started the project 
 as an Unreal C++ code project and allowed me to jump in, convert it to an Unreal Plugin, and start implementing some more features and
 ideas.  We're both big fans pinball -- the art, the technology, the comradery -- and of all the work that's been done in the
 visual/virtual pinball space.
+
+## Contributions
+We welcome contributions through GitHub Pull Requests and Issues are open for any 
+enhancement suggestions and bugs reports.  We try to adhere to Epic's Coding Standards.
 
 ---
 # Documentation (sort of.  WIP)
@@ -51,28 +80,6 @@ processing input switches.
 ### Is there any more questions in your FAQ?
 No, not yet :-)
 
-## Prerequisites
-- Unreal running in Windows - *I'm running 4.26 in Windows 10. Earlier versions may work.*
-- VPinMAME installed and runnable - *quickstart: install [this](https://www.vpforums.org/index.php?app=downloads&showfile=11573)
-  and note the location of VPinMAME within that install.*
-- game ROMs installed in VPinMAME's ROMs folder - *We can't help you with this part... for reasons.*
-- for developers:  compiler/dev env - *I'm using Visual Studio 2019.*
-
-Unreal-Visual-Pinball uses COM object (COM component) communications to interface with VPinMAME's
-DLL.  When VPinMAME is properly installed, it sets up registry keys that tell COM where to find the DLL.  If 
-those keys aren't properly set up, the system will not run.
-
-*"...those tiki-torches must be kept lit.... those seeds must be kept warm.... if those seeds die.... we die!"*
-
-## Installation
-This is kind of standard practice for GitHub Unreal plugins, but it goes kind of like this:
-1. Create a new Unreal project.
-1. Create a ```Plugins``` folder in your project directory.
-1. Clone the GitHub repository into your ```Plugins``` folder.
-1. Right-click on your Unreal project's ```.uproject``` file and select ```Generate Visual Studio Project Files```
-1. Open your Visual Studio Solution file and compile your Unreal C++ project.
-
-Please feel free to contribute an expansion of this explanation if you think it could help :-)
 
 ## Output Log
 Plugin logging happens under the log category, ```LogVPinball```.  You can filter the 
