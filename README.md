@@ -13,9 +13,7 @@ No example projects. Limited documentation.
 Current tasks:  Refactoring and reorganizing. Creating proper modules and getting things scoped properly.  Fleshing
 out the remainder of the API.  Documentation.
 
-Wanna play along?  Help is welcome - you can contact me on my 
-[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo.  Or, just fork this repo
-and submit pull requests.  :-)
+
 ## Getting up and running
 ### Prerequisites
 - Unreal running in Windows - *I'm running 4.26 in Windows 10. Earlier versions may work.*
@@ -45,8 +43,12 @@ ideas.  We're both big fans pinball -- the art, the technology, the comradery --
 visual/virtual pinball space.
 
 ## Contributions
-We welcome contributions through GitHub Pull Requests and Issues are open for any 
-enhancement suggestions and bugs reports.  We try to adhere to Epic's Coding Standards.
+Wanna play along?  Help is welcome - you can contact me on my 
+[discord](https://discord.gg/TSKHvVFYxB) server.  I'm cptvideo. 
+
+We welcome contributions through GitHub [Pull Requests](https://github.com/ScottKirvan/Unreal-Visual-Pinball/pulls) 
+and [Issues](https://github.com/ScottKirvan/Unreal-Visual-Pinball/issues) are open for any 
+enhancement suggestions and bugs reports.  We try to adhere to [Epic's Coding Standards](https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/).
 
 ---
 # Documentation (sort of.  WIP)
