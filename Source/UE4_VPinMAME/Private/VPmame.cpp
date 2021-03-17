@@ -111,6 +111,10 @@ void UVPmame::VpStop()
 /* Call will fail if there are no changed pixels, Exit and do not process in this case */
 void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 {
+	get_RawDmdPixels(Dots);
+}
+void UVPmame::get_RawDmdPixels(TArray<uint8>& Pixels)
+{
 	VARIANT VarDmdPixels;
 	LONG lstart, lend;
 	VARIANT HUGEP* Pbstr;
@@ -138,12 +142,12 @@ void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 		{
 			SafeArrayGetLBound(psa, 1, &lstart); // Get Array Start : Safearrays can have a starting point other than zero
 			SafeArrayGetUBound(psa, 1, &lend); // Get Array End
-			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated pixeldata
+			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated pixeldata  -- Idx may not start at 0 
 			{
 				BYTE Pixel;
 				Pixel = Pbstr[Idx].uintVal; // Pixeldata in VARIANT is stored as Unsigned Integer
 				Pixel = (Pixel - 20) * 3;
-				Dots.EmplaceAt(Idx, Pixel);
+				Pixels.EmplaceAt(Idx, Pixel);
 			}
 
 			SafeArrayUnaccessData(psa); // Release safearray for updating
@@ -152,7 +156,6 @@ void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 
 		}
 	}
-
 }
 
 
@@ -203,12 +206,12 @@ void UVPmame::VpGetLamps(TArray<uint8>& Lamps)
 			return;
 		}
 	}
-
-return;
 }
 
 void UVPmame::get_RawDmdWidth(int& Width) { if (GPController) { GPController->get_RawDmdWidth(&Width);} }
+void UVPmame::get_RawDmdHeight(int& Height) { if (GPController) { GPController->get_RawDmdHeight(&Height);} }
 void UVPmame::get_DmdWidth(int& Width) { if (GPController) {GPController->get_DmdWidth(&Width);} }
+void UVPmame::get_DmdHeight(int& Height) { if (GPController) {GPController->get_DmdHeight(&Height);} }
 void UVPmame::Run(int nMinVersion) { if (GPController) {GPController->Run(0,nMinVersion);} }
 void UVPmame::Stop() { if (GPController) {GPController->Stop();} }
 void UVPmame::ShowOptsDialog() { if (GPController) {GPController->ShowOptsDialog(0);} }
