@@ -202,7 +202,7 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/*************************************************************************
 	* IController.DmdPixel (read-only): read a given pixel of the DMD (slow!) (values 0..100?)
 	*************************************************************************/
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdPixel (int x,int y,  int & PixelValue );
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_DmdPixel (int x,int y,  uint8 & PixelValue );
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_updateDmdPixels (int * * buf,int width,int height, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLampsState (int * * buf, /*[out,retval]*/ int * pVal );

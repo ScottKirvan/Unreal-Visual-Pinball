@@ -144,7 +144,7 @@ void UVPmame::get_RawDmdPixels(TArray<uint8>& Pixels)
 			SafeArrayGetUBound(psa, 1, &lend); // Get Array End
 			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated pixeldata  -- Idx may not start at 0 
 			{
-				BYTE Pixel;
+				uint8 Pixel;
 				Pixel = Pbstr[Idx].uintVal; // Pixeldata in VARIANT is stored as Unsigned Integer
 				Pixel = (Pixel - 20) * 3;
 				Pixels.EmplaceAt(Idx, Pixel);
@@ -158,14 +158,17 @@ void UVPmame::get_RawDmdPixels(TArray<uint8>& Pixels)
 	}
 }
 
-void UVPmame::get_DmdPixel (int x,int y,  int & PixelValue )
+void UVPmame::get_DmdPixel (int x,int y,  uint8 & PixelValue )
 {
+	int Dot;
+	
 	if (GPController == nullptr)
 	{
 		return;
 	}
 	
-	GPController->get_DmdPixel(x, y, &PixelValue);
+	GPController->get_DmdPixel(x, y, &Dot);  // I think Dot may have a return value that indicates an error - not sure how to check it
+	PixelValue = Dot;
 	PixelValue = (PixelValue - 20) * 3;  // I'm manipulating this based on what Data Sung did above - no sure I follow and the results seem odd
 }
 
