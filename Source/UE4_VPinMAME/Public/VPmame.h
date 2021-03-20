@@ -107,9 +107,17 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Switches ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Switches (VARIANT pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoids ( /*[out,retval]*/ VARIANT * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_GameName ( /*[out,retval]*/ BSTR * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_GameName (BSTR pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_InstallDir ( /*[out,retval]*/ BSTR * pVal );
+#endif
+	/******************************************************
+	 * IController.GameName property: get/set the game name
+	 ******************************************************/
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_GameName"), Category = "VPinball|VPinMAME|Core") static FString get_GameName ();
+	/******************************************************
+	 * IController.GameName property: get/set the game name
+	 ******************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_GameName (const FString& RomName );
+#if 0
+	UFUNCTION(BlueprintCallable, kCategory = "VPinball|VPinMAME|Core") static void get_InstallDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_HandleKeyboard ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_HandleKeyboard (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_UseSamples ( /*[out,retval]*/ VARIANT_BOOL * pVal );

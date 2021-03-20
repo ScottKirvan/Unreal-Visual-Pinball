@@ -2,6 +2,7 @@
 
 #include "VPmame.h"
 #include "UE4_VPinMAME.h"
+#include <string>
 
 DEFINE_LOG_CATEGORY(LogVPinball);
 
@@ -55,10 +56,10 @@ UVPmame::UVPmame() {
 	FUE4_VPinMAMEModule::Get().SetPinMAME(this);
 };
 
-void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
+void UVPmame::put_GameName (const FString& RomName )
 {
 	HRESULT Hr;
-
+	
 	if (GPController == nullptr)
 	{
 		return;
@@ -81,14 +82,51 @@ void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and 
 		UE_LOG(LogVPinball, Log, TEXT("Gamename Set."));
 		SysFreeString(GPGameName);
 	}
+}
+
+FString UVPmame::get_GameName ()
+{
+	HRESULT Hr;
+	
+	if (GPController == nullptr)
+	{
+		return FString("");
+	}
+	
+	/* Get romname of emulated pinball machine */
+	Hr = GPController->get_GameName(&GPGameName);
+	if (FAILED(Hr)) 
+	{
+		UE_LOG(LogVPinball, Error, TEXT("Error: get_GameName(RomName) failed."));
+		return FString("");
+	}
+	
+	int length = WideCharToMultiByte(CP_ACP, 0, &GPGameName[0], -1, NULL, 0, NULL, NULL);
+	std::string s( length-1, '\0' );
+	WideCharToMultiByte(CP_ACP, 0, &GPGameName[0], -1, &s[0], length, NULL, NULL);
+	return FString(s.c_str());
+}
+
+void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
+{
+	HRESULT Hr;
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	put_GameName (RomName);
 
 	/* Start emulator */
 	Hr = GPController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
-	if (FAILED(Hr)) {
+	if (FAILED(Hr))
+	{
 		UE_LOG(LogVPinball, Error, TEXT("Can't Run !"));
 		return;
 	}
-	else {
+	else
+	{
 		UE_LOG(LogVPinball, Log, TEXT("Running."));
 	}
 	return;
@@ -113,6 +151,8 @@ void UVPmame::VpGetDMD(TArray<uint8>& Dots)
 {
 	get_RawDmdPixels(Dots);
 }
+
+
 void UVPmame::get_RawDmdPixels(TArray<uint8>& Pixels)
 {
 	VARIANT VarDmdPixels;
@@ -169,7 +209,8 @@ void UVPmame::get_DmdPixel (int x,int y,  uint8 & PixelValue )
 	
 	GPController->get_DmdPixel(x, y, &Dot);  // I think Dot may have a return value that indicates an error - not sure how to check it
 	PixelValue = Dot;
-	PixelValue = (PixelValue - 20) * 3;  // I'm manipulating this based on what Data Sung did above - no sure I follow and the results seem odd
+	PixelValue = (PixelValue - 21) * 25;
+	//PixelValue = (PixelValue - 20) * 3;  // I'm manipulating this based on what Data Sung did above - no sure I follow and the results seem odd
 }
 
 
