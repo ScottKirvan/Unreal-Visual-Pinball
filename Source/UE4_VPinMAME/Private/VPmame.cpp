@@ -109,27 +109,13 @@ FString UVPmame::get_GameName ()
 
 void UVPmame::VpStart(const FString& RomName) // Get romname from blueprint and start Pinmame emulator
 {
-	HRESULT Hr;
-
 	if (GPController == nullptr)
 	{
 		return;
 	}
 	
 	put_GameName (RomName);
-
-	/* Start emulator */
-	Hr = GPController->Run(0, 0);     // TODO - probably should have a nMinVersion number here?
-	if (FAILED(Hr))
-	{
-		UE_LOG(LogVPinball, Error, TEXT("Can't Run !"));
-		return;
-	}
-	else
-	{
-		UE_LOG(LogVPinball, Log, TEXT("Running."));
-	}
-	return;
+	Run(0); 
 }
 
 /* Stop emulator */
@@ -267,7 +253,24 @@ void UVPmame::get_RawDmdWidth(int& Width) { if (GPController) { GPController->ge
 void UVPmame::get_RawDmdHeight(int& Height) { if (GPController) { GPController->get_RawDmdHeight(&Height);} }
 void UVPmame::get_DmdWidth(int& Width) { if (GPController) {GPController->get_DmdWidth(&Width);} }
 void UVPmame::get_DmdHeight(int& Height) { if (GPController) {GPController->get_DmdHeight(&Height);} }
-void UVPmame::Run(int nMinVersion) { if (GPController) {GPController->Run(0,nMinVersion);} }
+void UVPmame::Run(int nMinVersion) 
+{ 
+	HRESULT Hr;
+	if (GPController) 
+	{
+		GPController->Run(0,nMinVersion);
+		if (FAILED(Hr))
+		{
+			UE_LOG(LogVPinball, Error, TEXT("Can't Run !"));
+			return;
+		}
+		else
+		{
+			UE_LOG(LogVPinball, Log, TEXT("Running."));
+		}
+		return;
+	} 
+}
 void UVPmame::Stop() { if (GPController) {GPController->Stop();} }
 void UVPmame::ShowOptsDialog() { if (GPController) {GPController->ShowOptsDialog(0);} }
 void UVPmame::ShowAboutDialog() { if (GPController) {GPController->ShowAboutDialog(0);} }
