@@ -319,3 +319,13 @@ void UVPmame:: put_Switch (int nSwitchNo,bool pVal )
 	GPController->put_Switch(nSwitchNo, tBoolVal);
 }
 
+bool UVPmame::get_Running ()
+{
+	VARIANT_BOOL tBoolVal;
+	if (GPController == nullptr)
+	{
+		return false;
+	}
+	GPController->get_Running(nSolenoid, &tBoolVal);
+	return (tBoolVal != 0) ? true : false;
+}

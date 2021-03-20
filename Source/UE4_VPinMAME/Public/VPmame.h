@@ -129,7 +129,12 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Pause ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Pause (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Machines (BSTR sMachine, /*[out,retval]*/ VARIANT * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Running ( /*[out,retval]*/ VARIANT_BOOL * pVal );
+#endif
+/*************************************************************************
+ * IController.Running property: is the emulation initialized and running?
+ *************************************************************************/
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Running"), Category = "VPinball|VPinMAME|Core") static bool get_Running ();
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void CheckROMS (int nShowOptions,LONG_PTR hParentWnd, /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_HandleMechanics ( /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_HandleMechanics (int pVal );
