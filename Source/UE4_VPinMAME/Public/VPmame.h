@@ -177,7 +177,9 @@ class UVPmame : public UBlueprintFunctionLibrary
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ImgDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ImgDir (BSTR pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Version ( /*[out,retval]*/ BSTR * pVal );
+#endif
+	UFUNCTION(BlueprintCallable, Meta=(DisplayNam="get_Version"), Category = "VPinball|VPinMAME|Core") static FString get_Version ( );
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Mech (int param,int _arg2 );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_NewSoundCommands ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Games ( /*[out,retval]*/ struct IGames * * pVal );

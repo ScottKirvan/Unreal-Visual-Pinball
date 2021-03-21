@@ -11,6 +11,7 @@ static IConnectionPointContainer* GPControllerConnectionPointContainer = nullptr
 static IConnectionPoint* GPControllerConnectionPoint = nullptr;
 static DWORD dwControllerCookie = 0;
 static BSTR GPGameName;
+static BSTR GPVersion;
 
 UVPmame::UVPmame() {
 	CLSID ClsID;
@@ -351,3 +352,26 @@ void UVPmame::put_Pause (bool pauseGame )
 		
 		GPController->put_Pause(tBoolVal);
 	}
+
+
+FString UVPmame::get_Version ( )
+{
+	HRESULT Hr;
+	
+	if (GPController == nullptr)
+	{
+		return FString("");
+	}
+	
+	Hr = GPController->get_Version(&GPVersion);
+	if (FAILED(Hr)) 
+	{
+		UE_LOG(LogVPinball, Error, TEXT("Error: get_Version() failed."));
+		return FString("");
+	}
+	
+	int length = WideCharToMultiByte(CP_ACP, 0, &GPVersion[0], -1, NULL, 0, NULL, NULL);
+	std::string s( length-1, '\0' );
+	WideCharToMultiByte(CP_ACP, 0, &GPVersion[0], -1, &s[0], length, NULL, NULL);
+	return FString(s.c_str());
+}
