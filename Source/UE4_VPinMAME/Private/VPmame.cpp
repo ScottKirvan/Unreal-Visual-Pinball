@@ -258,7 +258,7 @@ void UVPmame::Run(int nMinVersion)
 	HRESULT Hr;
 	if (GPController) 
 	{
-		GPController->Run(0,nMinVersion);
+		Hr = GPController->Run(0,nMinVersion);
 		if (FAILED(Hr))
 		{
 			UE_LOG(LogVPinball, Error, TEXT("Can't Run !"));
@@ -326,6 +326,28 @@ bool UVPmame::get_Running ()
 	{
 		return false;
 	}
-	GPController->get_Running(nSolenoid, &tBoolVal);
+	GPController->get_Running(&tBoolVal);
 	return (tBoolVal != 0) ? true : false;
 }
+
+bool UVPmame::get_Pause ( )
+	{
+		VARIANT_BOOL tBoolVal;
+		if (GPController == nullptr)
+		{
+			return false;
+		}
+		GPController->get_Pause(&tBoolVal);
+		return (tBoolVal != 0) ? true : false;
+	}
+
+void UVPmame::put_Pause (bool pauseGame )
+	{
+		VARIANT_BOOL tBoolVal = pauseGame ? -1 : 0;
+		if (GPController == nullptr)
+		{
+			return;
+		}
+		
+		GPController->put_Pause(tBoolVal);
+	}

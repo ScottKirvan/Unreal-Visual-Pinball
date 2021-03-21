@@ -126,8 +126,10 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_UseSamples (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ShowTitle ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ShowTitle (VARIANT_BOOL pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Pause ( /*[out,retval]*/ VARIANT_BOOL * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Pause (VARIANT_BOOL pVal );
+#endif
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static bool get_Pause ( );
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Pause (bool pVal );
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Machines (BSTR sMachine, /*[out,retval]*/ VARIANT * pVal );
 #endif
 /*************************************************************************
