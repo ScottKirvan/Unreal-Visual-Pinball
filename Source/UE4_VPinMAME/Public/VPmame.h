@@ -15,8 +15,6 @@ inline long InterlockedIncrement(long volatile* pn) { return _InterlockedIncreme
 inline long InterlockedDecrement(long volatile* pn) { return _InterlockedDecrement(pn); }
 
 #include "com.h"
-#include "Windows/HideWindowsPlatformTypes.h" // Add vanilla C++ header :End
-//#include "UE4_VPinMAME.h"
 #include "VPmame.generated.h"
 
 /**
