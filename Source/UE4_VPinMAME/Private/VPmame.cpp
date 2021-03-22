@@ -208,6 +208,11 @@ void UVPmame::VpGetLamps (TArray<uint8>& Lamps)
 	get_Lamps(Lamps);
 }
 
+void UVPmame::get_ChangedLampsState ( TArray<uint8>& lampNumber, TArray<uint8>& lampState, int &lampCount )
+{
+	get_ChangedLamps ( lampNumber, lampState );
+	lampCount = lampNumber.Num();
+}
 void UVPmame::get_ChangedLamps ( TArray<uint8>& lampNumber, TArray<uint8>& lampState )
 {
 	HRESULT Hr;

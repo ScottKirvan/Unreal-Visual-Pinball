@@ -265,10 +265,8 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/*****************************************************************************************
 	 * ChangedLampsState (read-only): Copy whole Changed Lamps array to a user allocated array
 	 *****************************************************************************************/
-	/*
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
-		static void get_ChangedLampsState (int ** buf, int * pVal );
-		*/
+		static void get_ChangedLampsState ( TArray<uint8>& lampNumber, TArray<uint8>& lampState, int &lampCount );
 	/**************************************************************************
 	 * LampsState (read-only): Copy whole Lamps array to a user allocated array
 	 **************************************************************************/
