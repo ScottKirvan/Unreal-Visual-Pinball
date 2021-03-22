@@ -311,7 +311,6 @@ void UVPmame::get_Lamps(TArray<uint8>& Lamps)
 				Lamps.EmplaceAt(Idx, Lamp);
 			}
 
-
 			SafeArrayUnaccessData(Psa); // Release safearray for updating
 			SafeArrayDestroy(Psa); // Destroy safearray object
 
@@ -462,4 +461,113 @@ FString UVPmame::get_Version ( )
 	std::string s( length-1, '\0' );
 	WideCharToMultiByte(CP_ACP, 0, &GPVersion[0], -1, &s[0], length, NULL, NULL);
 	return FString(s.c_str());
+}
+
+void UVPmame::get_ChangedSolenoids ( TArray<uint8>& solenoidNumber, TArray<uint8>& solenoidState )
+{
+	HRESULT Hr;
+	VARIANT VarSolenoidNum, VarSolenoidState, VarSolenoids;
+	LONG lstart, lend;
+	//VARIANT HUGEP* Pbstr;
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	Hr = GPController->get_ChangedSolenoids(&VarSolenoids);
+	if (Hr == S_FALSE) // VarSolenoids was null?
+	{
+		return;
+	}
+	else if (Hr == S_OK) // Return value of 0 means changed solenoids : Process
+	{
+		if (VarSolenoids.vt)
+		{
+			SAFEARRAY* Psa = VarSolenoids.parray;
+
+			SafeArrayGetLBound(Psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
+			SafeArrayGetUBound(Psa, 1, &lend); // Get Array End
+
+			long Idx[2];
+			for (Idx[0] = lstart; Idx[0] <= lend; Idx[0]++) // Loop to fill Blueprint array with updated solenoiddata
+			{
+				Idx[1] = 0;
+				SafeArrayGetElement(Psa, Idx, &VarSolenoidNum);
+				solenoidNumber.EmplaceAt(Idx[0], VarSolenoidNum.lVal);
+				Idx[1] = 1;
+				SafeArrayGetElement(Psa, Idx, &VarSolenoidState);
+				solenoidState.EmplaceAt(Idx[0], VarSolenoidState.lVal);
+			}
+
+			SafeArrayUnaccessData(Psa); // Release safearray for updating
+			SafeArrayDestroy(Psa); // Destroy safearray object
+		}
+	}
+}
+void UVPmame::get_Solenoids ( TArray<uint8>& Solenoids)
+{
+	HRESULT Hr;
+	VARIANT VarSolenoids;
+	LONG lstart, lend;
+	VARIANT HUGEP* Pbstr;
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	Hr = GPController->get_Solenoids(&VarSolenoids);
+	if (Hr == 1) // Return value of 1 means no changed solenoids and no valid data: Exit
+	{
+		return;
+	}
+	else if (Hr == 0) // Return value of 0 means changed solenoids : Process
+	{
+		SAFEARRAY* Psa = VarSolenoids.parray;
+
+		Hr = SafeArrayAccessData(Psa, reinterpret_cast<void **>(&Pbstr)); // Get pointer to arraydata : Data is passed as VARIANT type
+		if (FAILED(Hr))
+		{
+			return;
+		}
+		else
+		{
+			SafeArrayGetLBound(Psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
+			SafeArrayGetUBound(Psa, 1, &lend); // Get Array End
+
+			for (long Idx = lstart; Idx <= lend; Idx++) // Loop to fill Blueprint array with updated solenoiddata
+			{
+				BOOL Lamp;
+				Lamp = Pbstr[Idx].boolVal; // solenoiddata in VARIANT is stored as bool
+				Solenoids.EmplaceAt(Idx, Lamp);
+			}
+
+			SafeArrayUnaccessData(Psa); // Release safearray for updating
+			SafeArrayDestroy(Psa); // Destroy safearray object
+
+			return;
+		}
+	}
+}
+void UVPmame::get_ChangedSolenoidsState ( TArray<uint8>& solenoidNumber, TArray<uint8>& solenoidState, int &solenoidCount )
+{
+	get_ChangedSolenoids ( solenoidNumber, solenoidState );
+	solenoidCount = solenoidNumber.Num();
+}
+void UVPmame::get_SolenoidsState ( TArray<uint8>& solenoidState, int &solenoidCount)
+{
+	if (GPController == nullptr)
+	{
+		solenoidCount = 0;
+		return;
+	}
+
+	solenoidCount = 66;
+	for (int ix = 0; ix<solenoidCount; ix++)
+	{
+		bool bState;
+		get_Solenoid(ix, bState);
+		solenoidState.EmplaceAt(ix, (uint8)bState);  
+	}
 }

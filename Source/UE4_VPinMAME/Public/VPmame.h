@@ -140,9 +140,15 @@ class UVPmame : public UBlueprintFunctionLibrary
 	 ****************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void put_Switches (TArray<uint8>Switches);
-#if 0
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoids ( /*[out,retval]*/ VARIANT * pVal );
-#endif
+	/****************************************************************************
+	 * IController.ChangedSolenoids property (read-only): gets the state of all 
+	 * solenoids
+	 * (also gets the information, if at leats one solenoid has changed after 
+	 * last call; element 0 state if TRUE if at least one solenoid has changed 
+	 * state sice last call)
+	 ****************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedSolenoids ( TArray<uint8>& solenoidNumber, TArray<uint8>& solenoidState );
 	/******************************************************
 	 * IController.GameName property: get/set the game name
 	 *
@@ -191,7 +197,16 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ShowDMDOnly (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SplashInfoLine ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_SplashInfoLine (BSTR pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Solenoids ( /*[out,retval]*/ VARIANT * pVal );
+#endif //0
+/****************************************************************************
+ * IController.Solenoids property (read-only): returns the state of all 
+ * solenoids at once
+ * 
+ * There are 66 Solenoid slots
+ ****************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_Solenoids ( TArray<uint8>& Solenoids);
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Dip (int nNo, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Dip (int nNo,int pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_GIStrings ( /*[out,retval]*/ VARIANT * pVal );
@@ -292,9 +307,19 @@ class UVPmame : public UBlueprintFunctionLibrary
 	 **************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_LampsState (TArray<uint8>& lampState, int &lampCount);
+	/*************************************************************************************************
+	 * ChangedSolenoidsState (read-only): Copy whole Changed Solenoids array to a user allocated array
+	 *************************************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedSolenoidsState ( TArray<uint8>& solenoidNumber, TArray<uint8>& solenoidState, int &solenoidCount );
+	/**************************************************************************
+	 * SolenoidsState (read-only): Copy whole Solenoid array to a user allocated array
+	 *
+	 * There are 66 lamp slots
+	 **************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_SolenoidsState ( TArray<uint8>& solenoidState, int &solenoidCount);
 #if 0
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoidsState (int * * buf, /*[out,retval]*/ int * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SolenoidsState (int * * buf, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedGIsState (int * * buf, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_MasterVolume ( /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_MasterVolume (int pVal );
