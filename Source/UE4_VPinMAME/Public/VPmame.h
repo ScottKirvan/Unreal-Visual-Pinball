@@ -57,7 +57,8 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/*********************************************
 	 * IController.Stop() method: stop emulation 
 	 *********************************************/
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void Stop ( );
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void Stop ( );
 	
 	/*****************************************************************
 	 * IController.ShowOptsDialog: shows the options dialog
@@ -65,32 +66,38 @@ class UVPmame : public UBlueprintFunctionLibrary
 	 * Deprecated:
 	 * use Controller.Games("name").Settings.ShowSettingsDlg instead
 	 *****************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowOptsDialog"), Category = "VPinball|VPinMAME|Core") static void ShowOptsDialog ();
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowOptsDialog"), Category = "VPinball|VPinMAME|Core")
+		static void ShowOptsDialog ();
 	
 	/******************************************************
 	 * IController.ShowAboutDialog: shows the About dialog
 	 ******************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowAboutDialog"), Category = "VPinball|VPinMAME|Core") static void ShowAboutDialog ();
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowAboutDialog"), Category = "VPinball|VPinMAME|Core")
+		static void ShowAboutDialog ();
 	
 	/****************************************************************
 	 * IController.Lamp property (read only): get the state of a lamp
 	 ****************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Lamp"), Category = "VPinball|VPinMAME|Core") static void get_Lamp (int LampNumber, bool &State ); 
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Lamp"), Category = "VPinball|VPinMAME|Core") 
+		static void get_Lamp (int LampNumber, bool &State ); 
 	
 	/************************************************************************
 	 * IController.Solenoid property (read only): get the state of a solenoid
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Solenoid"), Category = "VPinball|VPinMAME|Core") static void get_Solenoid (int SolenoidNumber, bool &State );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Solenoid"), Category = "VPinball|VPinMAME|Core")
+		static void get_Solenoid (int SolenoidNumber, bool &State );
 	
 	/************************************************************************
 	 * IController.Switch property: get the state of a switch
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Switch"), Category = "VPinball|VPinMAME|Core") static void get_Switch (int SwitchNumber, bool &State );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_Switch"), Category = "VPinball|VPinMAME|Core")
+		static void get_Switch (int SwitchNumber, bool &State );
 	
 	/************************************************************************
 	 * IController.Switch property: set the state of a switch
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="put_Switch"), Category = "VPinball|VPinMAME|Core") static void put_Switch (int SwitchNumber,bool State );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="put_Switch"), Category = "VPinball|VPinMAME|Core")
+		static void put_Switch (int SwitchNumber,bool State );
 	
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RomDirs ( /*[out,retval]*/ BSTR * pVal );
@@ -102,8 +109,24 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_CfgDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_CfgDir (BSTR pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_WPCNumbering ( /*[out,retval]*/ VARIANT_BOOL * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Lamps ( /*[out,retval]*/ VARIANT * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLamps ( /*[out,retval]*/ VARIANT * pVal );
+#endif
+	/*********************************************************************
+	 * IController.Lamps property (read-only): gets the state of all lamps
+	 *********************************************************************/
+	/*
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_Lamps (TArray<uint8>& Lamps);
+		*/
+	/***************************************************************
+	 * IController.ChangedLamps property: returns a list of the 
+	 * numbers of lamp, which state has changed since the last call
+	 * number is in the first, state in the second part
+	 ***************************************************************/
+	/*
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedLamps ( TArray<uint8>& pVal );
+		*/
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Switches ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Switches (VARIANT pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoids ( /*[out,retval]*/ VARIANT * pVal );
@@ -113,11 +136,13 @@ class UVPmame : public UBlueprintFunctionLibrary
 	 *
 	 * If it's been set, returns the current rom name
 	 ******************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_GameName"), Category = "VPinball|VPinMAME|Core") static FString get_GameName ();
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_GameName"), Category = "VPinball|VPinMAME|Core")
+		static FString get_GameName ();
 	/******************************************************
 	 * IController.GameName property: get/set the game (rom) name
 	 ******************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="put_GameName"), Category = "VPinball|VPinMAME|Core") static void put_GameName (const FString& RomName );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="put_GameName"), Category = "VPinball|VPinMAME|Core")
+		static void put_GameName (const FString& RomName );
 #if 0
 	UFUNCTION(BlueprintCallable, kCategory = "VPinball|VPinMAME|Core") static void get_InstallDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_HandleKeyboard ( /*[out,retval]*/ VARIANT_BOOL * pVal );
@@ -127,8 +152,16 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ShowTitle ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ShowTitle (VARIANT_BOOL pVal );
 #endif
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static bool get_Pause ( );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Pause (bool pVal );
+	/*************************************************
+	 * IController.Pause property: Pause the emulation
+	 *************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static bool get_Pause ( );
+	/*************************************************
+	 * IController.Pause property: Pause the emulation
+	 *************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void put_Pause (bool pVal );
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Machines (BSTR sMachine, /*[out,retval]*/ VARIANT * pVal );
 #endif
@@ -173,12 +206,14 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SolMask (int nLow, /*[out,retval]*/ long * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_SolMask (int nLow,long pVal );
 #endif
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowPathsDialog"), Category = "VPinball|VPinMAME|Core") static void ShowPathsDialog ();
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="ShowPathsDialog"), Category = "VPinball|VPinMAME|Core")
+		static void ShowPathsDialog ();
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ImgDir ( /*[out,retval]*/ BSTR * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ImgDir (BSTR pVal );
 #endif
-	UFUNCTION(BlueprintCallable, Meta=(DisplayNam="get_Version"), Category = "VPinball|VPinMAME|Core") static FString get_Version ( );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayNam="get_Version"), Category = "VPinball|VPinMAME|Core")
+		static FString get_Version ( );
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Mech (int param,int _arg2 );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_NewSoundCommands ( /*[out,retval]*/ VARIANT * pVal );
@@ -196,36 +231,56 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/************************************************************************
 	 * IController.RawDmdWidth property (read-only): get the width of the DMD
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="getRawDndWidth"), Category = "VPinball|VPinMAME|Core") static void get_RawDmdWidth(int& Width);
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="getRawDndWidth"), Category = "VPinball|VPinMAME|Core")
+		static void get_RawDmdWidth(int& Width);
 	
 	/************************************************************************
 	 * IController.RawDmdHeight property (read-only): get the height of the DMD
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_RawDmdHeight"), Category = "VPinball|VPinMAME|Core") static void get_RawDmdHeight ( int& Height );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_RawDmdHeight"), Category = "VPinball|VPinMAME|Core")
+		static void get_RawDmdHeight ( int& Height );
 	
 	/************************************************************************************************
 	* IController.RawDmdPixels (read-only): Copy whole DMD to a self allocated array (values 0..100)
 	************************************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_RawDmdPixels"), Category = "VPinball|VPinMAME|Core") static void get_RawDmdPixels ( TArray<uint8>& Pixels );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_RawDmdPixels"), Category = "VPinball|VPinMAME|Core")
+		static void get_RawDmdPixels ( TArray<uint8>& Pixels );
 	
 	/************************************************************************
 	 * IController.DmdWidth property (read-only): get the width of DMD bitmap
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdWidth"), Category = "VPinball|VPinMAME|Core") static void get_DmdWidth(int& Width);
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdWidth"), Category = "VPinball|VPinMAME|Core")
+		static void get_DmdWidth(int& Width);
 	
 	/************************************************************************
 	 * IController.DmdHeight property (read-only): get the height of DMD bitmap
 	 ************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdHeight"), Category = "VPinball|VPinMAME|Core") static void get_DmdHeight(int& Height);
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdHeight"), Category = "VPinball|VPinMAME|Core")
+		static void get_DmdHeight(int& Height);
 	
 	/*************************************************************************
 	* IController.DmdPixel (read-only): read a given pixel of the DMD (slow!) (values 0..100?)
 	*************************************************************************/
-	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdPixels"), Category = "VPinball|VPinMAME|Core") static void get_DmdPixel (int x,int y,  uint8 & PixelValue );
+	UFUNCTION(BlueprintCallable, Meta=(DisplayName="get_DmdPixels"), Category = "VPinball|VPinMAME|Core")
+		static void get_DmdPixel (int x,int y,  uint8 & PixelValue );
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_updateDmdPixels (int * * buf,int width,int height, /*[out,retval]*/ int * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLampsState (int * * buf, /*[out,retval]*/ int * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_LampsState (int * * buf, /*[out,retval]*/ int * pVal );
+#endif // 0
+	/*****************************************************************************************
+	 * ChangedLampsState (read-only): Copy whole Changed Lamps array to a user allocated array
+	 *****************************************************************************************/
+	/*
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedLampsState (int ** buf, int * pVal );
+		*/
+	/**************************************************************************
+	 * LampsState (read-only): Copy whole Lamps array to a user allocated array
+	 **************************************************************************/
+	/*
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_LampsState (int ** buf, int * pVal );
+		*/
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoidsState (int * * buf, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SolenoidsState (int * * buf, /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedGIsState (int * * buf, /*[out,retval]*/ int * pVal );
