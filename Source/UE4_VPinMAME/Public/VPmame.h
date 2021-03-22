@@ -112,19 +112,31 @@ class UVPmame : public UBlueprintFunctionLibrary
 #endif
 	/*********************************************************************
 	 * IController.Lamps property (read-only): gets the state of all lamps
+	 * There are 90 lamp slots
 	 *********************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_Lamps (TArray<uint8>& Lamps);
 	/***************************************************************
 	 * IController.ChangedLamps property: returns a list of the 
 	 * numbers of lamp, which state has changed since the last call
-	 * number is in the first, state in the second part
+	 * number is in the first, state in the second part.
+	 * There are 90 lamp slots
 	 ***************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_ChangedLamps ( TArray<uint8>& lampNumber, TArray<uint8>& lampState );
+	/****************************************************************************
+	 * IController.Switches property: sets/gets the state of all switches at once
+	 * There are 129 switch slots
+	 ****************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_Switches ( TArray<uint8>&Switches);
+	/****************************************************************************
+	 * IController.Switches property: sets/gets the state of all switches at once
+	 * There are 90 lamp slots
+	 ****************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void put_Switches (TArray<uint8>Switches);
 #if 0
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Switches ( /*[out,retval]*/ VARIANT * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Switches (VARIANT pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedSolenoids ( /*[out,retval]*/ VARIANT * pVal );
 #endif
 	/******************************************************
@@ -264,11 +276,13 @@ class UVPmame : public UBlueprintFunctionLibrary
 #endif // 0
 	/*****************************************************************************************
 	 * ChangedLampsState (read-only): Copy whole Changed Lamps array to a user allocated array
+	 * There are 90 lamp slots
 	 *****************************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_ChangedLampsState ( TArray<uint8>& lampNumber, TArray<uint8>& lampState, int &lampCount );
 	/**************************************************************************
 	 * LampsState (read-only): Copy whole Lamps array to a user allocated array
+	 * There are 90 lamp slots
 	 **************************************************************************/
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_LampsState (TArray<uint8>& lampState, int &lampCount);

@@ -379,15 +379,33 @@ void UVPmame::get_Switch (int nSwitchNo, bool &pVal )
 	GPController->get_Switch(nSwitchNo, &tBoolVal);
 	pVal = (tBoolVal != 0) ? true : false;
 }
-void UVPmame:: put_Switch (int nSwitchNo,bool pVal )
+void UVPmame:: put_Switch (int SwitchNumber,bool State )
 {
-	VARIANT_BOOL tBoolVal = pVal ? -1 : 0;
+	VARIANT_BOOL tBoolVal = State ? -1 : 0;
 	if (GPController == nullptr)
 	{
 		return;
 	}
 	
-	GPController->put_Switch(nSwitchNo, tBoolVal);
+	GPController->put_Switch(SwitchNumber, tBoolVal);
+}
+
+void UVPmame::get_Switches ( TArray<uint8>&Switches )
+{
+	for (int switchNum = 0; switchNum < 128; switchNum++)
+	{
+		bool tBoolVal;
+		get_Switch(switchNum, tBoolVal);
+		Switches.EmplaceAt(switchNum, (uint8)tBoolVal);
+	}
+}
+
+void UVPmame::put_Switches ( TArray<uint8>Switches )
+{
+	for (int switchNum = 0; switchNum < 128; switchNum++)
+	{
+		put_Switch(switchNum, Switches[switchNum] ? true : false);
+	}
 }
 
 bool UVPmame::get_Running ()
