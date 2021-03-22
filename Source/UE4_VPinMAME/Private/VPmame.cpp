@@ -579,3 +579,53 @@ void UVPmame::get_SolenoidsState ( TArray<uint8>& solenoidState, int &solenoidCo
 		solenoidState.EmplaceAt(ix, (uint8)bState);  
 	}
 }
+
+void UVPmame::get_ChangedLEDs (int nHigh,int nLow,int nnHigh,int nnLow, TArray<uint8>& ledNumber , TArray<uint8>& ledSegments , TArray<uint8>& ledState )
+{
+	HRESULT Hr;
+	VARIANT VarLEDNum, VarLEDSegs, VarLEDState, VarLEDs;
+	LONG lstart, lend;
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	Hr = GPController->get_ChangedLEDs(nHigh, nLow, nnHigh, nnLow, &VarLEDs);
+	if (Hr == S_FALSE) // VarLEDs was null?
+	{
+		return;
+	}
+	else if (Hr == S_OK) // Return value of 0 means changed leds : Process
+	{
+		if (VarLEDs.vt)
+		{
+			SAFEARRAY* Psa = VarLEDs.parray;
+
+			SafeArrayGetLBound(Psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
+			SafeArrayGetUBound(Psa, 1, &lend); // Get Array End
+
+			long Idx[2];
+			for (Idx[0] = lstart; Idx[0] <= lend; Idx[0]++) // Loop to fill Blueprint array with updated leddata
+			{
+				Idx[1] = 0;
+				SafeArrayGetElement(Psa, Idx, &VarLEDNum);
+				ledNumber.EmplaceAt(Idx[0], VarLEDNum.lVal);
+				Idx[1] = 1;
+				SafeArrayGetElement(Psa, Idx, &VarLEDSegs);
+				ledSegments.EmplaceAt(Idx[0], VarLEDSegs.lVal);
+				Idx[1] = 2;
+				SafeArrayGetElement(Psa, Idx, &VarLEDState);
+				ledState.EmplaceAt(Idx[0], VarLEDState.lVal);
+			}
+
+			SafeArrayUnaccessData(Psa); // Release safearray for updating
+			SafeArrayDestroy(Psa); // Destroy safearray object
+		}
+	}
+}
+void UVPmame::get_ChangedLEDsState (int nHigh,int nLow,int nnHigh,int nnLow, TArray<uint8>& ledNumber , TArray<uint8>& ledSegments , TArray<uint8>& ledState, int &ledCount )
+{
+	get_ChangedLEDs (nHigh, nLow, nnHigh, nnLow,  ledNumber, ledSegments, ledState);
+	ledCount = ledNumber.Num();
+}

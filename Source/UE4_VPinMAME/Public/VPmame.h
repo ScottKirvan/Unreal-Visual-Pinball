@@ -244,7 +244,25 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_NewSoundCommands ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Games ( /*[out,retval]*/ struct IGames * * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Settings ( /*[out,retval]*/ struct IControllerSettings * * pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLEDs (int nHigh,int nLow,int nnHigh,int nnLow, /*[out,retval]*/ VARIANT * pVal );
+#endif //0
+	/****************************************************************************
+	 * IController.ChangedLEDs property (read-only): gets the state of all 
+	 * LEDs
+	 * (also gets the information, if at least one LED has changed after 
+	 * last call; element 0 state if TRUE if at least one LED has changed 
+	 * state since last call)
+	 *
+	 * devnote:  I'm guessing on this one - it's not documented, so test and see if
+	 * you can figure out how this works or what it should do.  This is, I believe,
+	 * for use with segmented LED score displays.  The Flicker or Gorgar roms, for
+	 * example.  I think Flicker should be safe for public use because I think that's
+	 * not a rom copy - it was developed to restore an existing game - it's super
+	 * simple so might be a good use case example, and we can use it on an educational
+	 * and historic basis.
+	 ****************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedLEDs (int nHigh,int nLow,int nnHigh,int nnLow, TArray<uint8>& ledNumber , TArray<uint8>& ledSegments , TArray<uint8>& ledState );
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Hidden ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Hidden (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Game ( /*[out,retval]*/ struct IGame * * pVal );
@@ -337,7 +355,13 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ShowPinDMD (VARIANT_BOOL pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ShowWinDMD ( /*[out,retval]*/ VARIANT_BOOL * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_ShowWinDMD (VARIANT_BOOL pVal );
-	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedLEDsState (int nHigh,int nLow,int nnHigh,int nnLow,int * * buf, /*[out,retval]*/ int * pVal );
+#endif // 0
+	/*****************************************************************************************
+	 * get_ChangedLEDsState (read-only): Copy whole Changed LEDS digits/Segments array to a user allocated array
+	 *****************************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
+		static void get_ChangedLEDsState (int nHigh,int nLow,int nnHigh,int nnLow, TArray<uint8>& ledNumber , TArray<uint8>& ledSegments , TArray<uint8>& ledState, int &ledCount );
+#if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_RawDmdColoredPixels ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_NVRAM ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_ChangedNVRAM ( /*[out,retval]*/ VARIANT * pVal );
