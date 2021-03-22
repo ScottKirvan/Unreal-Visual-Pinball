@@ -6,10 +6,10 @@
 
 DEFINE_LOG_CATEGORY(LogVPinball);
 
-static HICON m_hIcon = 0;
+//static HICON m_hIcon = 0;
 static IConnectionPointContainer* GPControllerConnectionPointContainer = nullptr;
 static IConnectionPoint* GPControllerConnectionPoint = nullptr;
-static DWORD dwControllerCookie = 0;
+//static DWORD dwControllerCookie = 0;
 static BSTR GPGameName;
 static BSTR GPVersion;
 
@@ -48,11 +48,19 @@ UVPmame::UVPmame() {
 	}
 	else
 	{
-		UE_LOG(LogVPinball, Log, TEXT("Controller Interface successfully interrogated - good to go!."));
+		UE_LOG(LogVPinball, Log, TEXT("Controller Interface successfully interrogated."));
 	}
 
-	if (SUCCEEDED(Hr))
-		Hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
+	Hr = GPControllerConnectionPointContainer->FindConnectionPoint(__uuidof(_IControllerEvents), &GPControllerConnectionPoint);
+	if (FAILED(Hr) || GPControllerConnectionPoint == nullptr)
+	{
+		UE_LOG(LogVPinball, Error, TEXT("FindConnecitoNPoint Failed! Controller Connection Point invalid "));
+		return;
+	}
+	else
+	{
+		UE_LOG(LogVPinball, Log, TEXT("FindConnectionPoint Successful."));
+	}
 
 	FUE4_VPinMAMEModule::Get().SetPinMAME(this);
 };
