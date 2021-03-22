@@ -203,7 +203,55 @@ void UVPmame::get_DmdPixel (int x,int y,  uint8 & PixelValue )
 
 /* Get array of changed lamps in unsigned integer format*/
 /* Call will fail if there are no changed lamps, Exit and do not process in this case */
-void UVPmame::VpGetLamps(TArray<uint8>& Lamps)
+void UVPmame::VpGetLamps (TArray<uint8>& Lamps)
+{
+	get_Lamps(Lamps);
+}
+
+void UVPmame::get_ChangedLamps ( TArray<uint8>& lampNumber, TArray<uint8>& lampState )
+{
+	HRESULT Hr;
+	VARIANT VarLampNum, VarLampState, VarLamps;
+	LONG lstart, lend;
+	//VARIANT HUGEP* Pbstr;
+
+	if (GPController == nullptr)
+	{
+		return;
+	}
+	
+	Hr = GPController->get_ChangedLamps(&VarLamps);
+	if (Hr == S_FALSE) // VarLamps was null?
+	{
+		return;
+	}
+	else if (Hr == S_OK) // Return value of 0 means changed lamps : Process
+	{
+		if (VarLamps.vt)
+		{
+			SAFEARRAY* Psa = VarLamps.parray;
+
+			SafeArrayGetLBound(Psa, 1, &lstart); // Get array start : Safearrays can have a starting point other than zero
+			SafeArrayGetUBound(Psa, 1, &lend); // Get Array End
+
+			long Idx[2];
+			for (Idx[0] = lstart; Idx[0] <= lend; Idx[0]++) // Loop to fill Blueprint array with updated lampdata
+			{
+				Idx[1] = 0;
+				SafeArrayGetElement(Psa, Idx, &VarLampNum);
+				lampNumber.EmplaceAt(Idx[0], VarLampNum.lVal);
+				Idx[1] = 1;
+				SafeArrayGetElement(Psa, Idx, &VarLampState);
+				lampState.EmplaceAt(Idx[0], VarLampState.lVal);
+			}
+
+			SafeArrayUnaccessData(Psa); // Release safearray for updating
+			SafeArrayDestroy(Psa); // Destroy safearray object
+		}
+	}
+}
+
+void UVPmame::get_Lamps(TArray<uint8>& Lamps)
 {
 	HRESULT Hr;
 	VARIANT VarLamps;

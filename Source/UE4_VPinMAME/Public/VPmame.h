@@ -113,19 +113,15 @@ class UVPmame : public UBlueprintFunctionLibrary
 	/*********************************************************************
 	 * IController.Lamps property (read-only): gets the state of all lamps
 	 *********************************************************************/
-	/*
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
 		static void get_Lamps (TArray<uint8>& Lamps);
-		*/
 	/***************************************************************
 	 * IController.ChangedLamps property: returns a list of the 
 	 * numbers of lamp, which state has changed since the last call
 	 * number is in the first, state in the second part
 	 ***************************************************************/
-	/*
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core")
-		static void get_ChangedLamps ( TArray<uint8>& pVal );
-		*/
+		static void get_ChangedLamps ( TArray<uint8>& lampNumber, TArray<uint8>& lampState );
 #if 0
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_Switches ( /*[out,retval]*/ VARIANT * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_Switches (VARIANT pVal );
