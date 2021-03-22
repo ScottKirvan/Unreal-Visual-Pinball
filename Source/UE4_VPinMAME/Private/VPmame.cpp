@@ -256,6 +256,23 @@ void UVPmame::get_ChangedLamps ( TArray<uint8>& lampNumber, TArray<uint8>& lampS
 	}
 }
 
+void UVPmame::get_LampsState (TArray<uint8>& lampState, int &lampCount)
+{
+	if (GPController == nullptr)
+	{
+		lampCount = 0;
+		return;
+	}
+
+	lampCount = 89;
+	for (int ix = 0; ix<lampCount; ix++)
+	{
+		bool bState;
+		get_Lamp(ix, bState);
+		lampState.EmplaceAt(ix, (uint8)bState);  
+	}
+}
+
 void UVPmame::get_Lamps(TArray<uint8>& Lamps)
 {
 	HRESULT Hr;
