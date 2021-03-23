@@ -7,7 +7,7 @@ Welcome!
 - **dev-XXX** - WIP development branches - more likely to be unstable, buggy, or fuggly.
 
 ## Current Status
-Enough of the core MAME API's should be up and running to start putting together functional machines.
+Enough of the core MAME API's should be up and running to start putting together functional machines.  API's are still fluid, so expect to have to update and rebuild blueprints from time to time.
 
 Current tasks:  Ongoing refactoring and reorganizing. Fleshing
 out the remainder of the API.  Documentation/Examples.
