@@ -7,11 +7,10 @@ Welcome!
 - **dev-XXX** - WIP development branches - more likely to be unstable, buggy, or fuggly.
 
 ## Current Status
-WIP as a code project.  API only partially implemented.  Fun to play with, but not usable for game creation. 
-No example projects. Limited documentation.
+Enough of the core MAME API's should be up and running to start putting together functional machines.
 
-Current tasks:  Refactoring and reorganizing. Creating proper modules and getting things scoped properly.  Fleshing
-out the remainder of the API.  Documentation.
+Current tasks:  Ongoing refactoring and reorganizing. Fleshing
+out the remainder of the API.  Documentation/Examples.
 
 
 ## Getting up and running
