@@ -4,11 +4,8 @@
 
 #include "Modules/ModuleManager.h"
 #include "UnrealEd.h"
-#include "SlateBasics.h"
 #include "SlateExtras.h"
 #include "Editor/LevelEditor/Public/LevelEditor.h"
-#include "Editor/PropertyEditor/Public/PropertyEditing.h"
-#include "IAssetTypeActions.h"
 #include "VPmame.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogVPinball, Log, All);
@@ -16,6 +13,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogVPinball, Log, All);
 class IVPinMAMEModuleListenerInterface
 {
 public:
+	virtual ~IVPinMAMEModuleListenerInterface() {};
 	virtual void OnStartupModule() {};
 	virtual void OnShutdownModule() {};
 };
@@ -24,6 +22,7 @@ class FUE4_VPinMAMEModule : public IModuleInterface
 {
 	UVPmame *pPinMame;
 public:
+	FUE4_VPinMAMEModule() { pPinMame = nullptr; }
 
 	virtual void StartupModule();
 	virtual void ShutdownModule();
