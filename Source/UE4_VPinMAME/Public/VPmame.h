@@ -368,6 +368,18 @@ class UVPmame : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void get_SoundMode ( /*[out,retval]*/ int * pVal );
 	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Core") static void put_SoundMode (int pVal );
 #endif
+	// I think these two methods belong in ScooterGeo
+	/*****************************************************************************************
+	 * Allow override of vertex colors on a per-component basis, taking array of Blueprint-friendly LinearColors.
+	 *****************************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Utilities")
+		static void SetVertexColorOverride_LinearColor( UStaticMeshComponent* Target, const TArray<FLinearColor>& VertexColors);
+	
+	/*****************************************************************************************
+	 * Allow override of vertex colors on a per-component basis.
+	 *****************************************************************************************/
+	UFUNCTION(BlueprintCallable, Category = "VPinball|VPinMAME|Utilities")
+		static void SetVertexColorOverride( UStaticMeshComponent* Target, const TArray<FColor>& VertexColors);
 };
 
 IController* UVPmame::GPController = nullptr;

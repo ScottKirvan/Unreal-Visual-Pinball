@@ -39,6 +39,7 @@ public class UE4_VPinMAME : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"RenderCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

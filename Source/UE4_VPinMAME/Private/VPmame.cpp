@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPmame.h"
+
+//#include <RenderMeshAsset.h>
+
 #include "UE4_VPinMAME.h"
 #include <string>
 
@@ -629,3 +632,54 @@ void UVPmame::get_ChangedLEDsState (int nHigh,int nLow,int nnHigh,int nnLow, TAr
 	get_ChangedLEDs (nHigh, nLow, nnHigh, nnLow,  ledNumber, ledSegments, ledState);
 	ledCount = ledNumber.Num();
 }
+
+void UVPmame::SetVertexColorOverride_LinearColor( UStaticMeshComponent* Target, const TArray<FLinearColor>& VertexColors)
+{
+
+	TArray<FColor> Colors;
+	if (VertexColors.Num()>0)
+	{
+		Colors.SetNum(VertexColors.Num());
+		for (int32 ColorIdx = 0; ColorIdx < VertexColors.Num(); ColorIdx++)
+		{
+			Colors[ColorIdx] = VertexColors[ColorIdx].ToFColor(false);
+		}
+	}
+	SetVertexColorOverride( Target, Colors);
+}
+
+void UVPmame::SetVertexColorOverride( UStaticMeshComponent* Target, const TArray<FColor>& VertexColors)
+{
+	UStaticMesh* SM = Target->GetStaticMesh(); 	
+	if (!SM) {
+		UE_LOG(LogTemp, Log, TEXT("Static mesh not found"));
+		return;
+	}
+	else if (VertexColors.Max() != 0)
+	{
+		//FPositionVertexBuffer* PositionVertexBuffer = &SM->RenderData->LODResources[0].VertexBuffers.PositionVertexBuffer; 
+		Target->SetLODDataCount(1, Target->LODData.Num()); 
+		FStaticMeshComponentLODInfo* LODInfo = &Target->LODData[0]; 
+		LODInfo->PaintedVertices.Empty(); 	
+		LODInfo->OverrideVertexColors = new FColorVertexBuffer(); 
+		FStaticMeshLODResources& LodResources = SM->RenderData->LODResources[0]; 
+		TArray<FColor> RandomColorArray; 
+		RandomColorArray.Reserve(LodResources.GetNumVertices() * 4 - 1); 
+
+		for (int32 i = 0; i < VertexColors.Num(); i++) /// look at SkinnedMechComponent.cpp - maybe this should use the same "ExpectedNumVerts" method
+		{
+			int c = 0; 
+			for (c = 0; c < 4; c++)  // this may be specific to pierre's dmd model, so this may have to change
+			{
+				//RandomColorArray.Add(FColor(VertexColors[i], 0, 0, 0));
+				RandomColorArray.Add(VertexColors[i]);
+			}
+		}
+
+		LODInfo->OverrideVertexColors->InitFromColorArray(RandomColorArray);
+		BeginInitResource(LODInfo->OverrideVertexColors);
+		Target->MarkRenderStateDirty();
+	}
+}
+
+
