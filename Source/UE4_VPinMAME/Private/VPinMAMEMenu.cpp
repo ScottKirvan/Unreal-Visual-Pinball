@@ -2,8 +2,6 @@
 #include "VPinMAMEMenu.h"
 #include "UE4_VPinMAME.h"
 
-#include "ScopedTransaction.h"
-
 #define LOCTEXT_NAMESPACE "VPinMAMEMenu"
 
 class VPinMAMEMenuCommands : public TCommands<VPinMAMEMenuCommands>
@@ -22,9 +20,9 @@ public:
 
 	virtual void RegisterCommands() override
 	{
-		UI_COMMAND(MenuCommand1, "Options...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
-		UI_COMMAND(MenuCommand2, "Paths...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
-		UI_COMMAND(MenuCommand3, "About...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputGesture());
+		UI_COMMAND(MenuCommand1, "Options...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputChord());
+		UI_COMMAND(MenuCommand2, "Paths...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputChord());
+		UI_COMMAND(MenuCommand3, "About...", "Show the VPinMAME Options Dialog.", EUserInterfaceActionType::Button, FInputChord());
 	}
 
 public:
