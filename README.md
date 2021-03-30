@@ -38,7 +38,7 @@ This is kind of standard practice for GitHub Unreal plugins, but it goes kind of
 ## Project Origins  
 Huge thanks go to [Datasung](https://github.com/datasung) from [bits4u.nl](https://www.bits4u.nl/unreal-engine-visual-pinball-part-1/).  He started the project 
 as an Unreal C++ code project and allowed me to jump in, convert it to an Unreal Plugin, and start implementing some more features and
-ideas.  We're both big fans pinball -- the art, the technology, the comradery -- and of all the work that's been done in the
+ideas.  We're both big pinball fans -- the art, the technology, the comradery -- and of all the work that's been done in the
 visual/virtual pinball space.
 
 ## Contributions
@@ -98,4 +98,3 @@ there you can use ```UE_LOG(LogVPinball, Log, TEXT("Test Log Message"));``` from
 your own source code.  Change "Log" to whatever verbosity level you wish: 
 (Fatal|Error|Warning|Display|Log|Verbose|VeryVerbose).
 
-From Blueprints, you may use the ```<TBD>``` node to generate ```LogVPinball``` output.
